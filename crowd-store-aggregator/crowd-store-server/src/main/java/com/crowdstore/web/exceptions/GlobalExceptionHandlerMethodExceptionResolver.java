@@ -1,4 +1,4 @@
-package com.circlestore.web.exceptions;
+package com.crowdstore.web.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;

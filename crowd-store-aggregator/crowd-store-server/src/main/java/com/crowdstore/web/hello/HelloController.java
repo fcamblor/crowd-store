@@ -1,4 +1,4 @@
-package com.circlestore.web.hello;
+package com.crowdstore.web.hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

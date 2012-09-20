@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.circlestore</groupId>
-    <artifactId>circle-store-aggregator</artifactId>
+    <groupId>com.crowdstore</groupId>
+    <artifactId>crowd-store-aggregator</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>circle-store-parent</module>
-        <module>circle-store-server</module>
+        <module>crowd-store-parent</module>
+        <module>crowd-store-server</module>
     </modules>
 
     

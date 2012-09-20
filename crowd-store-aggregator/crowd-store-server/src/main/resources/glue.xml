@@ -12,7 +12,7 @@
     <bean class="org.slf4j.bridge.SLF4JBridgeHandler" init-method="install" lazy-init="false" />
 
     <context:annotation-config/>
-    <context:component-scan base-package="com.circlestore" />
+    <context:component-scan base-package="com.crowdstore" />
 
     <!-- Then, loading every properties file -->
     <bean id="properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

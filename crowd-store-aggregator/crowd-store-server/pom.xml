@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.circlestore</groupId>
-        <artifactId>circle-store-parent</artifactId>
+        <groupId>com.crowdstore</groupId>
+        <artifactId>crowd-store-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../circle-store-parent/pom.xml</relativePath>
+        <relativePath>../crowd-store-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>circle-store-server</artifactId>
+    <artifactId>crowd-store-server</artifactId>
     <packaging>war</packaging>
 
 

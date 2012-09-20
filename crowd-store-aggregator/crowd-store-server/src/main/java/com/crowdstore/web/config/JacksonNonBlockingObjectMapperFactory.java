@@ -1,4 +1,4 @@
-package com.circlestore.web.config;
+package com.crowdstore.web.config;
 
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
