@@ -17,8 +17,8 @@ import java.util.List;
 
 /**
  * @author fcamblor
- * Exception resolver used to manage globally exception handlers : instead of having
- * several @ExceptionHandler(X.class) in every @Controller,
+ *         Exception resolver used to manage globally exception handlers : instead of having
+ *         several @ExceptionHandler(X.class) in every @Controller,
  */
 public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHandlerExceptionResolver {
 
@@ -28,7 +28,7 @@ public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHand
     @Override
     // Instead of looking at handlerMethod.bean instance, looking at current exception resolver instance
     // which should contain @ExceptionHandler annotated methods
-   	protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
+    protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
         Method method = CURRENT_CLASS_EXCEPTION_HANDLER_RESOLVER.resolveMethod(exception);
         return (method != null ? new ServletInvocableHandlerMethod(this, method) : null);
     }
@@ -36,14 +36,16 @@ public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHand
     // These @ExceptionHandler methods will be executed instead of the @Controller ones !
     @ExceptionHandler(BindException.class)
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
-    public @ResponseBody
+    public
+    @ResponseBody
     List<ObjectError> handleBindingFailure(BindException exception) {
         return exception.getBindingResult().getAllErrors();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
-    public @ResponseBody
+    public
+    @ResponseBody
     List<ObjectError> handleBindingFailure(MethodArgumentNotValidException exception) {
         return exception.getBindingResult().getAllErrors();
     }

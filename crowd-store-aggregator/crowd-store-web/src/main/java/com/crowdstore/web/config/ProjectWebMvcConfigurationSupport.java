@@ -40,10 +40,10 @@ public class ProjectWebMvcConfigurationSupport extends WebMvcConfigurationSuppor
         // you would encounter a NPE)
 
         // Looking for MappingJacksonHttpMessageConverter
-        for(HttpMessageConverter<?> converter : converters){
-            if(converter instanceof MappingJacksonHttpMessageConverter){
+        for (HttpMessageConverter<?> converter : converters) {
+            if (converter instanceof MappingJacksonHttpMessageConverter) {
                 // Overriding object mapper with custom one
-                ((MappingJacksonHttpMessageConverter)converter).setObjectMapper(configureObjectMapperFactory().createObjectMapper());
+                ((MappingJacksonHttpMessageConverter) converter).setObjectMapper(configureObjectMapperFactory().createObjectMapper());
             }
         }
     }

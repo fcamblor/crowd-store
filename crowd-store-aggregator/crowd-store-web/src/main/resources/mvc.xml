@@ -7,12 +7,12 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-            <property name="defaultLocale" value="${default.locale}" />
+        <property name="defaultLocale" value="${default.locale}"/>
     </bean>
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
 
-    <mvc:resources mapping="/pub/**" location="/pub/" />
+    <mvc:resources mapping="/pub/**" location="/pub/"/>
 
     <!--Multipart resolver-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

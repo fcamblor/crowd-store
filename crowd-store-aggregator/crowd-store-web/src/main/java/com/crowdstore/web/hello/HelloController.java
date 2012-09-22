@@ -22,9 +22,11 @@ public class HelloController {
 
     public static class Result {
         Integer value;
+
         public Integer getValue() {
             return value;
         }
+
         public void setValue(Integer value) {
             this.value = value;
         }
@@ -35,15 +37,19 @@ public class HelloController {
         Integer leftOperand;
         @NotNull
         Integer rightOperand;
+
         public Integer getLeftOperand() {
             return leftOperand;
         }
+
         public void setLeftOperand(Integer leftOperand) {
             this.leftOperand = leftOperand;
         }
+
         public Integer getRightOperand() {
             return rightOperand;
         }
+
         public void setRightOperand(Integer rightOperand) {
             this.rightOperand = rightOperand;
         }
@@ -71,12 +77,14 @@ public class HelloController {
                 return Math.round(leftOperand / rightOperand);
             }
         };
+
         public abstract Integer apply(Integer leftOperand, Integer rightOperand);
     }
 
-    @RequestMapping(value="/calculate",method=RequestMethod.POST)
-    public @ResponseBody
-    Result calculate(@RequestBody @Validated Query query){
+    @RequestMapping(value = "/calculate", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Result calculate(@RequestBody @Validated Query query) {
         LOG.info("In calculate() ...");
         Result r = new Result();
         r.value = Operator.plus.apply(query.leftOperand, query.rightOperand);
