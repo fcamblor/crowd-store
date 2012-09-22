@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>crowd-store-parent</module>
-        <module>crowd-store-server</module>
+        <module>crowd-store-web</module>
     </modules>
 
     

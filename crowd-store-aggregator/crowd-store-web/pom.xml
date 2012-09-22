@@ -11,7 +11,7 @@
         <relativePath>../crowd-store-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>crowd-store-server</artifactId>
+    <artifactId>crowd-store-web</artifactId>
     <packaging>war</packaging>
 
 
