@@ -15,6 +15,8 @@
         <spring.version>3.1.0.RELEASE</spring.version>
         <slf4j-api.version>1.6.2</slf4j-api.version>
         <logback-classic.version>1.0.5</logback-classic.version>
+        <!-- Overridable in sub poms -->
+        <maven.release.plugin.arguments></maven.release.plugin.arguments>
     </properties>
 
     <dependencyManagement>
@@ -137,6 +139,14 @@
                     <version>2.12.3</version>
                     <configuration>
                         <argLine>-Denv=test</argLine>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <arguments>${maven.release.plugin.arguments}</arguments>
                     </configuration>
                 </plugin>
             </plugins>
