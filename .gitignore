@@ -11,3 +11,7 @@ target/
 # IDE Files #
 .idea/
 *.iml
+
+# application.properties Files #
+/src/main/resources/appconfig/devspecific/application-*.properties
+!/src/main/resources/appconfig/devspecific/application-jenkins.properties
