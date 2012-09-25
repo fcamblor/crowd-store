@@ -5,10 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 
@@ -23,6 +21,18 @@ public class HelloController {
 
     @Inject
     HelloService helloService;
+
+    @RequestMapping(value = "/sayHello/{whom}", method = RequestMethod.GET)
+    // @PathVariable stands for url path parameters
+    public ModelAndView sayHello(@PathVariable String whom) {
+        String sentence = helloService.sayHello(whom);
+
+        // When returning a ModelAndView, spring will forward current request to
+        // a jsp in WEB-INF/jsp/<view name>.jsp (see app-servlet.xml)
+        ModelAndView mav = new ModelAndView("hello/sayHello");
+        mav.addObject("sentence", sentence);
+        return mav;
+    }
 
     @RequestMapping(value = "/calculate", method = RequestMethod.POST)
     public
