@@ -10,7 +10,76 @@
         <property name="defaultLocale" value="${default.locale}"/>
     </bean>
 
-    <mvc:annotation-driven/>
+    <bean id="jacksonObjectMapperFactory" class="com.crowdstore.web.common.json.JacksonNonBlockingObjectMapperFactory">
+        <property name="jsonSerializers">
+            <list>
+            </list>
+        </property>
+        <property name="jsonDeserializers">
+            <list>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$ShortDeserializer">
+                    <constructor-arg value="java.lang.Short"/>
+                    <constructor-arg type="java.lang.Short">
+                        <null/>
+                    </constructor-arg>
+                </bean>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$IntegerDeserializer">
+                    <constructor-arg value="java.lang.Integer"/>
+                    <constructor-arg type="java.lang.Integer">
+                        <null/>
+                    </constructor-arg>
+                </bean>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$CharacterDeserializer">
+                    <constructor-arg value="java.lang.Character"/>
+                    <constructor-arg type="java.lang.Character">
+                        <null/>
+                    </constructor-arg>
+                </bean>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$LongDeserializer">
+                    <constructor-arg value="java.lang.Long"/>
+                    <constructor-arg type="java.lang.Long">
+                        <null/>
+                    </constructor-arg>
+                </bean>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$FloatDeserializer">
+                    <constructor-arg value="java.lang.Float"/>
+                    <constructor-arg type="java.lang.Float">
+                        <null/>
+                    </constructor-arg>
+                </bean>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$DoubleDeserializer">
+                    <constructor-arg value="java.lang.Double"/>
+                    <constructor-arg type="java.lang.Double">
+                        <null/>
+                    </constructor-arg>
+                </bean>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$NumberDeserializer"/>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$BigDecimalDeserializer"/>
+                <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$BigIntegerDeserializer"/>
+                <bean class="org.codehaus.jackson.map.deser.std.CalendarDeserializer"/>
+            </list>
+        </property>
+        <property name="jsonKeyDeserializers">
+            <list>
+            </list>
+        </property>
+        <property name="jsonKeySerializers">
+            <list>
+            </list>
+        </property>
+    </bean>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                <property name="objectMapper">
+                    <bean id="jacksonObjectMapper" factory-bean="jacksonObjectMapperFactory"
+                          factory-method="createObjectMapper"/>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <mvc:resources mapping="/pub/**" location="/pub/"/>
 
