@@ -13,6 +13,9 @@
     <bean id="jacksonObjectMapperFactory" class="com.crowdstore.web.common.json.JacksonNonBlockingObjectMapperFactory">
         <property name="jsonSerializers">
             <list>
+                <bean class="com.crowdstore.web.common.json.ser.JodaDateTimeSerializer"/>
+                <bean class="com.crowdstore.web.common.json.ser.JodaLocalTimeSerializer"/>
+                <bean class="com.crowdstore.web.common.json.ser.JodaLocalDateSerializer"/>
             </list>
         </property>
         <property name="jsonDeserializers">
@@ -57,14 +60,23 @@
                 <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$BigDecimalDeserializer"/>
                 <bean class="org.codehaus.jackson.map.deser.std.StdDeserializer$BigIntegerDeserializer"/>
                 <bean class="org.codehaus.jackson.map.deser.std.CalendarDeserializer"/>
+                <bean class="com.crowdstore.web.common.json.deser.JodaDateTimeDeserializer"/>
+                <bean class="com.crowdstore.web.common.json.deser.JodaLocalTimeDeserializer"/>
+                <bean class="com.crowdstore.web.common.json.deser.JodaLocalDateDeserializer"/>
             </list>
         </property>
         <property name="jsonKeyDeserializers">
             <list>
+                <bean class="com.crowdstore.web.common.json.deser.JodaDateTimeKeyDeserializer"/>
+                <bean class="com.crowdstore.web.common.json.deser.JodaLocalTimeKeyDeserializer"/>
+                <bean class="com.crowdstore.web.common.json.deser.JodaLocalDateKeyDeserializer"/>
             </list>
         </property>
         <property name="jsonKeySerializers">
             <list>
+                <bean class="com.crowdstore.web.common.json.ser.JodaLocalDateKeySerializer"/>
+                <bean class="com.crowdstore.web.common.json.ser.JodaDateTimeKeySerializer"/>
+                <bean class="com.crowdstore.web.common.json.ser.JodaLocalTimeKeySerializer"/>
             </list>
         </property>
     </bean>
