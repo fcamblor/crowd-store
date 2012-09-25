@@ -107,6 +107,11 @@
             <artifactId>joda-time-jsptags</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

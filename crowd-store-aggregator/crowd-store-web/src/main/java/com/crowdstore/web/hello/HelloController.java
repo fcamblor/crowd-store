@@ -1,5 +1,6 @@
 package com.crowdstore.web.hello;
 
+import com.crowdstore.service.hello.HelloService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.inject.Inject;
+
 /**
  * @author fcamblor
  */
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HelloController {
 
     private static Logger LOG = LoggerFactory.getLogger(HelloController.class);
+
+    @Inject
+    HelloService helloService;
 
     @RequestMapping(value = "/calculate", method = RequestMethod.POST)
     public
