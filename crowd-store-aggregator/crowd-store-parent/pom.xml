@@ -88,10 +88,20 @@
             </dependency>
 
             <!-- Utilities -->
+            <!-- GUAVA -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>13.0</version>
+            </dependency>
+            <!--
+            Needed transitive dependency for guava 13 and above
+            More information on http://code.google.com/p/guava-libraries/wiki/Release13#Non-API_changes
+            -->
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>1.3.9</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
