@@ -84,7 +84,22 @@ public class HelloController {
     @RequestMapping(value = "/calculate", method = RequestMethod.POST)
     public
     @ResponseBody
-    Result calculate(@RequestBody @Validated Query query) {
+        // For @RequestBody to be correctly processed here, you will have to :
+        // - Provide JSON bean in request body, something like this : { "leftOperand":1,  "rightOperand":3 }
+        // - Set Content-Type header to application/json
+    Result calculatePost(@RequestBody @Validated Query query) {
+        LOG.info("In calculate() ...");
+        Result r = new Result();
+        r.value = Operator.plus.apply(query.leftOperand, query.rightOperand);
+        return r;
+    }
+
+    @RequestMapping(value = "/calculate", method = RequestMethod.GET)
+    public
+    @ResponseBody
+        // For a "simple" Object mapping based on query parameters, you will have to call current url
+        // with ?leftOperand=1&rightOperand=3, which will be filling the "query" object automatically
+    Result calculateGet(@Validated Query query) {
         LOG.info("In calculate() ...");
         Result r = new Result();
         r.value = Operator.plus.apply(query.leftOperand, query.rightOperand);
