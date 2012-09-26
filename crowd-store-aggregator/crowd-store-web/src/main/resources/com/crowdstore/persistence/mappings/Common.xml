@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crowdstore.persistence.mappings.commons">
+
+    <resultMap id="Identifiable" type="com.crowdstore.models.common.Identifiable">
+        <id column="id" property="id"/>
+    </resultMap>
+
+    <resultMap id="IdentifiableContainer" type="com.crowdstore.models.common.IdentifiableContainer">
+        <id column="identity.id" property="identity.id"/>
+    </resultMap>
+
+</mapper>
