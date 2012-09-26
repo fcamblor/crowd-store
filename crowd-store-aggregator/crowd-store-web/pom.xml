@@ -26,6 +26,11 @@
             <artifactId>spring-webmvc</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <scope>compile</scope>
+        </dependency>
         <!-- For Spring aop -->
         <dependency>
             <groupId>cglib</groupId>
@@ -105,11 +110,6 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time-jsptags</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>
