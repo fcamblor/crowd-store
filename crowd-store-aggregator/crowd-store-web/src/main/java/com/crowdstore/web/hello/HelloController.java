@@ -44,7 +44,7 @@ public class HelloController {
     Result calculatePost(@RequestBody @Validated Query query) {
         LOG.info("In calculate() ...");
         Result r = new Result();
-        r.value = Operator.plus.apply(query.leftOperand, query.rightOperand);
+        r.value = helloService.calculate(Operator.plus.apply(query.leftOperand, query.rightOperand)).getValue();
         return r;
     }
 
@@ -56,7 +56,7 @@ public class HelloController {
     Result calculateGet(@Validated Query query) {
         LOG.info("In calculate() ...");
         Result r = new Result();
-        r.value = Operator.plus.apply(query.leftOperand, query.rightOperand);
+        r.value = helloService.calculate(Operator.plus.apply(query.leftOperand, query.rightOperand)).getValue();
         return r;
     }
 }
