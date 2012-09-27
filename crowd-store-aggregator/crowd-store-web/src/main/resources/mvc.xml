@@ -98,6 +98,10 @@
             <mvc:mapping path="/**"/>
             <bean class="com.crowdstore.web.common.interceptors.AppThreadedInfosRequestProvider"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.crowdstore.web.common.interceptors.AppContextInRequestProvider"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <mvc:resources mapping="/pub/**" location="/pub/"/>
