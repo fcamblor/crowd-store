@@ -1,21 +1,21 @@
 package com.crowdstore.models.users;
 
-import com.crowdstore.models.common.IdentifiableContainer;
-
-import java.io.Serializable;
+import com.crowdstore.models.common.GenericIdentifiableContainer;
 
 /**
  * @author fcamblor
  */
-public class User implements Serializable, IdentifiableContainer<UserIdentity> {
-    private UserIdentity identity;
+public class User extends GenericIdentifiableContainer<UserIdentity> {
 
+    /**
+     * @deprecated Use constructor with identity instead !
+     */
     public User() {
-        this(null);
+        super(null);
     }
 
     public User(UserIdentity identity) {
-        this.identity = identity;
+        super(identity);
     }
 
     @Override
