@@ -9,6 +9,10 @@ public class AuthenticatedUser extends User {
     private Locale locale;
     // TODO: Add available rights to authenticated user
 
+    public AuthenticatedUser(UserIdentity identity) {
+        super(identity);
+    }
+
     /**
      * @deprecated Use either LocaleContextHolder#getLocale() or AppThreadedInfos#getLocale() instead !
      *             This method should only be called when updating current locale in spring !

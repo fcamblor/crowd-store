@@ -9,6 +9,10 @@ public class UserIdentity extends GenericIdentifiable {
     private String displayName;
     private String email;
 
+    public UserIdentity(Long id) {
+        super(id);
+    }
+
     public UserIdentity setDisplayName(String _displayName) {
         this.displayName = _displayName;
         return this;

@@ -14,7 +14,7 @@ public class User implements Serializable, IdentifiableContainer<UserIdentity> {
         this(null);
     }
 
-    public User(UserIdentity userIdentity) {
+    public User(UserIdentity identity) {
         this.identity = identity;
     }
 
