@@ -1,5 +1,6 @@
 package com.crowdstore.service.hello;
 
+import com.crowdstore.models.context.AppContext;
 import com.crowdstore.models.hello.HelloModel;
 import com.crowdstore.persistence.hello.HelloDao;
 import org.slf4j.Logger;
@@ -18,6 +19,9 @@ public class HelloServiceImpl implements HelloService {
     @Inject
     HelloDao helloDao;
 
+    @Inject
+    AppContext appContext;
+
     @Override
     public String sayHello(String whom) {
         LOGGER.info("Hello {}", whom);
@@ -26,6 +30,7 @@ public class HelloServiceImpl implements HelloService {
 
     @Override
     public HelloModel calculate(Integer value) {
-        return helloDao.findModel(value);
+        String currentUserDisplayName = appContext.getAuthenticatedUser() == null ? "" : appContext.getAuthenticatedUser().getIdentity().getDisplayName();
+        return helloDao.findModel(value + currentUserDisplayName.length());
     }
 }
