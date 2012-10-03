@@ -1,4 +1,4 @@
-package com.crowdstore.models.role;
+package com.crowdstore.models.security;
 
 /**
  * @author damienriccio

@@ -1,5 +1,7 @@
 package com.crowdstore.models.role;
 
+import com.crowdstore.models.security.GlobalAuthorization;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +15,7 @@ public enum GlobalRole {
         public List<GlobalAuthorization> getAuthorizations() {
             final ArrayList<GlobalAuthorization> authorizations = new ArrayList<GlobalAuthorization>();
             Collections.addAll(authorizations, GlobalAuthorization.values());
-            return  authorizations;
+            return authorizations;
         }
     };
 
