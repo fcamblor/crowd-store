@@ -2,22 +2,22 @@ package com.crowdstore.models.role;
 
 import com.crowdstore.models.security.GlobalAuthorization;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author damienriccio
  */
 public enum GlobalRole {
-    ADMIN {
-        @Override
-        public List<GlobalAuthorization> getAuthorizations() {
-            final ArrayList<GlobalAuthorization> authorizations = new ArrayList<GlobalAuthorization>();
-            Collections.addAll(authorizations, GlobalAuthorization.values());
-            return authorizations;
-        }
-    };
+    ADMIN(GlobalAuthorization.values()), SIMPLE_USER();
 
-    public abstract List<GlobalAuthorization> getAuthorizations();
+    List<GlobalAuthorization> authorizations;
+
+    private GlobalRole(GlobalAuthorization... authorizations) {
+        this.authorizations = Arrays.asList(authorizations);
+    }
+
+    public List<GlobalAuthorization> getAuthorizations() {
+        return authorizations;
+    }
 }
