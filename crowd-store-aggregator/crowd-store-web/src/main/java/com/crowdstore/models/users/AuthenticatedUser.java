@@ -1,5 +1,8 @@
 package com.crowdstore.models.users;
 
+import com.crowdstore.models.role.GlobalRole;
+import com.crowdstore.models.security.GlobalAuthorization;
+
 import java.util.Locale;
 
 /**
@@ -7,7 +10,7 @@ import java.util.Locale;
  */
 public class AuthenticatedUser extends User {
     private Locale locale;
-    // TODO: Add available rights to authenticated user
+    private GlobalRole globalRole;
 
     public AuthenticatedUser(UserIdentity identity) {
         super(identity);
@@ -28,5 +31,18 @@ public class AuthenticatedUser extends User {
     public AuthenticatedUser setLocale(Locale locale) {
         this.locale = locale;
         return this;
+    }
+
+    public AuthenticatedUser setGlobalRole(GlobalRole _globalRole) {
+        this.globalRole = _globalRole;
+        return this;
+    }
+
+    public GlobalRole getGlobalRole() {
+        return this.globalRole;
+    }
+
+    public boolean hasGlobalAuthorization(GlobalAuthorization authorization) {
+        return globalRole.getAuthorizations().contains(authorization);
     }
 }
