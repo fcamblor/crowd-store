@@ -1,9 +1,14 @@
 package com.crowdstore.web.hello;
 
 import com.crowdstore.models.context.AppContext;
+import com.crowdstore.models.role.GlobalRole;
+import com.crowdstore.models.security.GlobalAuthorization;
 import com.crowdstore.models.users.AuthenticatedUser;
 import com.crowdstore.models.users.UserIdentity;
 import com.crowdstore.service.hello.HelloService;
+import com.crowdstore.web.common.annotations.PublicSpace;
+import com.crowdstore.web.common.annotations.RequireGlobalAuthorizations;
+import com.crowdstore.web.common.result.RequestResult;
 import com.crowdstore.web.common.session.SessionHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +39,7 @@ public class HelloController {
     @Inject
     AppContext appContext;
 
+    @PublicSpace
     @RequestMapping(value = "/sayHello/{whom}", method = RequestMethod.GET)
     // @PathVariable stands for url path parameters
     public ModelAndView sayHello(@PathVariable String whom) {
@@ -46,6 +52,7 @@ public class HelloController {
         return mav;
     }
 
+    @PublicSpace
     @RequestMapping(value = "/calculate", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -60,6 +67,7 @@ public class HelloController {
         return r;
     }
 
+    @PublicSpace
     @RequestMapping(value = "/calculate", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -72,13 +80,16 @@ public class HelloController {
         return r;
     }
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.GET)
+    // TODO: IMPORTANT : Remove this controller impl because it represents a security flaw,
+    // opening a session without any credentials
+    @PublicSpace
+    @RequestMapping(value = "/authenticate/{globalRole}", method = RequestMethod.GET)
     // Exceptionnaly, we're passing HttpServletRequest & Response to a spring method, in order to be able to store
     // authenticated user in the session
-    public String authenticate(HttpServletRequest request, HttpServletResponse response) {
+    public String authenticate(HttpServletRequest request, HttpServletResponse response, @PathVariable String globalRole) {
         AuthenticatedUser authenticatedUser = new AuthenticatedUser(
                 new UserIdentity(1l).setEmail("foo@bar.com").setDisplayName("Foo bar " + new SimpleDateFormat("HHmmss").format(new Date()))
-        ).setLocale(Locale.FRANCE);
+        ).setLocale(Locale.FRANCE).setGlobalRole(GlobalRole.valueOf(globalRole));
 
         // Storing authenticatedUser into the session
         SessionHolder.setAuthenticatedUser(request, response, authenticatedUser);
@@ -98,5 +109,18 @@ public class HelloController {
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         SessionHolder.setAuthenticatedUser(request, response, null);
         return "hello/logoutOk";
+    }
+
+    /**
+     * You should test to authenticate with /authenticate/ADMIN and /authenticate/SIMPLE_USER
+     * then test this url to see if, in the first case, authenticated user is allowed, and in the second case,
+     * he isn't allowed
+     */
+    @RequireGlobalAuthorizations(GlobalAuthorization.CREATE_USER)
+    @RequestMapping(value = "testAuthorizations", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    RequestResult testAuthorizations() {
+        return RequestResult.ok;
     }
 }
