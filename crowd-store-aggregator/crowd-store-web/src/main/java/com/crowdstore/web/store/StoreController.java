@@ -1,9 +1,9 @@
 package com.crowdstore.web.store;
 
+import com.crowdstore.common.annotations.InjectLogger;
 import com.crowdstore.models.store.Store;
 import com.crowdstore.service.store.StoreService;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +18,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/store")
 public class StoreController {
-    private static Logger LOGGER = LoggerFactory.getLogger(StoreController.class);
+    @InjectLogger
+    private Logger LOGGER;
 
     @Inject
     StoreService storeService;

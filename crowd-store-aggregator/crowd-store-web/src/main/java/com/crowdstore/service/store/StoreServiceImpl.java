@@ -1,10 +1,10 @@
 package com.crowdstore.service.store;
 
+import com.crowdstore.common.annotations.InjectLogger;
 import com.crowdstore.models.store.Store;
 import com.crowdstore.persistence.store.StoreDao;
 import com.crowdstore.service.user.UserService;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -15,7 +15,8 @@ import java.util.List;
  */
 @Service
 public class StoreServiceImpl implements StoreService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(StoreServiceImpl.class);
+    @InjectLogger
+    private Logger LOGGER;
 
     @Inject
     StoreDao storeDao;

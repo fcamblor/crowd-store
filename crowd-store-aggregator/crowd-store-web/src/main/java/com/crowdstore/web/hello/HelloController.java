@@ -1,5 +1,6 @@
 package com.crowdstore.web.hello;
 
+import com.crowdstore.common.annotations.InjectLogger;
 import com.crowdstore.models.context.AppContext;
 import com.crowdstore.models.role.GlobalRole;
 import com.crowdstore.models.security.GlobalAuthorization;
@@ -11,7 +12,6 @@ import com.crowdstore.web.common.annotations.RequireGlobalAuthorizations;
 import com.crowdstore.web.common.result.RequestResult;
 import com.crowdstore.web.common.session.SessionHolder;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +31,8 @@ import java.util.Locale;
 @RequestMapping("/hello")
 public class HelloController {
 
-    private static Logger LOG = LoggerFactory.getLogger(HelloController.class);
+    @InjectLogger
+    private Logger LOG;
 
     @Inject
     HelloService helloService;

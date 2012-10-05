@@ -1,10 +1,10 @@
 package com.crowdstore.service.hello;
 
+import com.crowdstore.common.annotations.InjectLogger;
 import com.crowdstore.models.context.AppContext;
 import com.crowdstore.models.hello.HelloModel;
 import com.crowdstore.persistence.hello.HelloDao;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -14,7 +14,8 @@ import javax.inject.Inject;
  */
 @Service
 public class HelloServiceImpl implements HelloService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HelloServiceImpl.class);
+    @InjectLogger
+    private Logger LOGGER;
 
     @Inject
     HelloDao helloDao;
