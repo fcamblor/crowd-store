@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crowdstore.persistence.associations.AssociationDaoImpl">
+
+    <select id="getRestrictionAssociationKeys" parameterType="map" resultType="Long">
+        SELECT
+        m.${col2Name}
+        FROM
+        ${assocationTable} m
+        WHERE
+        m.${col1Name} IN
+        <foreach collection="col1Values" item="col1Value" open="(" separator="," close=")">
+            #{col1Value}
+        </foreach>
+    </select>
+    <select id="getRestrictionAssociationStr" parameterType="map" resultType="String">
+        SELECT
+        m.${col2Name}
+        FROM
+        ${assocationTable} m
+        WHERE
+        m.${col1Name} IN
+        <foreach collection="col1Values" item="col1Value" open="(" separator="," close=")">
+            #{col1Value}
+        </foreach>
+    </select>
+    <select id="getAssociationAdditionnalColValuesStr" parameterType="map" resultType="Long">
+        SELECT
+        m.${additionnalColumnName}
+        FROM
+        ${assocationTable} m
+        WHERE
+        m.${col1Name} IN
+        <foreach collection="col1Values" item="col1Value" open="(" separator="," close=")">
+            #{col1Value}
+        </foreach>
+    </select>
+
+    <insert id="insertAssocValue" parameterType="map">
+        INSERT INTO ${assocationTable} (
+        ${col1Name},
+        ${col2Name}
+        <if test="additionnalColumnNames.empty != true">
+            ,
+            <foreach collection="additionnalColumnNames" item="columnName" open="" separator="," close="">
+                ${columnName}
+            </foreach>
+        </if>
+        )
+        VALUES(
+        #{col1Value},
+        #{col2Value}
+        <if test="additionnalColumnValues.empty != true">
+            ,
+            <foreach collection="additionnalColumnValues" item="columnValue" open="" separator="," close="">
+                ${columnValue}
+            </foreach>
+        </if>
+        )
+    </insert>
+
+    <update id="updateAssocValue" parameterType="map">
+        UPDATE
+        ${assocationTable}
+        SET
+        <foreach collection="additionnalColumns" item="column" open="" separator="," close="">
+            ${column.key} = #{column.value}
+        </foreach>
+        WHERE
+        ${col1Name} = #{col1Value}
+        AND ${col2Name} = #{col2Value}
+    </update>
+
+    <delete id="deleteAssociationsByCol1Value" parameterType="map">
+        DELETE FROM ${assocationTable} WHERE ${col1Name} IN
+        <foreach collection="col1Values" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteAssociation" parameterType="map">
+        DELETE FROM ${assocationTable} WHERE ${col1Name} = #{col1Value} AND ${col2Name} = #{col2Value}
+    </delete>
+
+</mapper>
