@@ -89,7 +89,9 @@ public class HelloController {
     // authenticated user in the session
     public String authenticate(HttpServletRequest request, HttpServletResponse response, @PathVariable String globalRole) {
         AuthenticatedUser authenticatedUser = new AuthenticatedUser(
-                new UserIdentity(1l).setEmail("foo@bar.com").setDisplayName("Foo bar " + new SimpleDateFormat("HHmmss").format(new Date()))
+                new UserIdentity(1l).setEmail("foo@bar.com")
+                        .setFirstName("Foo bar " + new SimpleDateFormat("HHmmss").format(new Date()))
+                        .setLastName("toto")
         ).setLocale(Locale.FRANCE).setGlobalRole(GlobalRole.valueOf(globalRole));
 
         // Storing authenticatedUser into the session
