@@ -208,27 +208,52 @@
                     <plugin>
                         <groupId>org.dbmaintain</groupId>
                         <artifactId>dbmaintain-maven-plugin</artifactId>
-                        <version>2.4</version>
+                        <version>2.5-4sh</version>
                         <configuration>
-                            <databases>
-                                <database>
-                                    <driverClassName>com.mysql.jdbc.Driver</driverClassName>
-                                    <userName>${crowd-store.db.user.name}</userName>
-                                    <password>${crowd-store.db.password}</password>
-                                    <url>${crowd-store.db.url}</url>
-                                    <schemaNames>${crowd-store.db.schema.names}</schemaNames>
-                                </database>
-                            </databases>
-                            <scriptLocations>${project.basedir}/src/main/sql/scripts/</scriptLocations>
+                            <propertyDatabases>
+                                <propertyDatabase>
+                                    <propertyPaths>
+                                        <propertyPath>
+                                            ${project.basedir}/src/main/resources/appconfig/application.properties
+                                        </propertyPath>
+                                        <propertyPath>
+                                            ${project.basedir}/src/main/resources/appconfig/envspecific/application-${env}.properties
+                                        </propertyPath>
+                                        <propertyPath>
+                                            ${project.basedir}/src/main/resources/appconfig/devspecific/application-${user.name}.properties
+                                        </propertyPath>
+                                    </propertyPaths>
+                                    <driverClassNameKey>db.driver</driverClassNameKey>
+                                    <userNameKey>db.username</userNameKey>
+                                    <passwordKey>db.password</passwordKey>
+                                    <urlKey>db.url</urlKey>
+                                    <schemaNamesKey>db.schemaNames</schemaNamesKey>
+                                </propertyDatabase>
+                            </propertyDatabases>
                             <scriptEncoding>UTF-8</scriptEncoding>
                             <autoCreateDbMaintainScriptsTable>true</autoCreateDbMaintainScriptsTable>
                         </configuration>
                         <executions>
                             <execution>
+                                <id>run-dbmaintain-main-scripts</id>
                                 <phase>initialize</phase>
                                 <goals>
                                     <goal>updateDatabase</goal>
                                 </goals>
+                                <configuration>
+                                    <scriptLocations>${project.basedir}/src/main/sql/scripts/</scriptLocations>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>run-dbmaintain-test-scripts</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>updateDatabase</goal>
+                                </goals>
+                                <configuration>
+                                    <scriptLocations>${project.basedir}/src/test/sql/scripts/</scriptLocations>
+                                    <executedScriptsTableName>dbmaintain_scripts_tests</executedScriptsTableName>
+                                </configuration>
                             </execution>
                         </executions>
                         <dependencies>
