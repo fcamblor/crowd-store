@@ -1,9 +1,9 @@
 package com.crowdstore.service.store;
 
 import com.crowdstore.common.annotations.InjectLogger;
-import com.crowdstore.models.store.Store;
+import com.crowdstore.models.users.User;
+import com.crowdstore.models.users.UserIdentity;
 import com.crowdstore.persistence.store.StoreDao;
-import com.crowdstore.service.user.UserService;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +21,8 @@ public class StoreServiceImpl implements StoreService {
     @Inject
     StoreDao storeDao;
 
-    @Inject
-    UserService userService;
-
     @Override
-    public List<Store> getAllStores() {
-        return storeDao.getAllStores();
+    public List<UserIdentity> getStoreUsers(String storeToken) {
+        return storeDao.getStoreUsers(storeToken);
     }
 }

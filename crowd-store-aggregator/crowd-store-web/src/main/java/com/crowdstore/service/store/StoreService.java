@@ -1,6 +1,6 @@
 package com.crowdstore.service.store;
 
-import com.crowdstore.models.store.Store;
+import com.crowdstore.models.users.UserIdentity;
 
 import java.util.List;
 
@@ -8,5 +8,5 @@ import java.util.List;
  * @author damienriccio
  */
 public interface StoreService {
-    List<Store> getAllStores();
+    List<UserIdentity> getStoreUsers(String storeToken);
 }
