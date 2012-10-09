@@ -35,6 +35,12 @@ public class Permissions {
         return hasAuthorization;
     }
 
+    public static void ensure(boolean constraintWhichShouldBeTrue, String failingFormattedMessage, Object... failingMessageArgs) throws RestrictedFeatureException {
+        if(!constraintWhichShouldBeTrue){
+            throw new RestrictedFeatureException(failingFormattedMessage, failingMessageArgs);
+        }
+    }
+
     public static void ensureHasAuthorizations(AuthenticatedUser user, ConditionnalOperator operator, GlobalAuthorization... authorizations)
             throws RestrictedFeatureException {
         if (!hasAuthorizations(user, operator, authorizations)) {
