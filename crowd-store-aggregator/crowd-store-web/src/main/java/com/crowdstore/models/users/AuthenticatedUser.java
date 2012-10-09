@@ -45,8 +45,9 @@ public class AuthenticatedUser extends User {
         return this;
     }
 
-    public void setStoreRoles(Map<String, StoreRole> storeRoles) {
+    public AuthenticatedUser setStoreRoles(Map<String, StoreRole> storeRoles) {
         this.storeRoles = storeRoles;
+        return this;
     }
 
     public Map<String, List<StoreAuthorization>> getStoresAuthorizations(){
