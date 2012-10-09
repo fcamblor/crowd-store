@@ -227,7 +227,7 @@
                                     <userNameKey>db.username</userNameKey>
                                     <passwordKey>db.password</passwordKey>
                                     <urlKey>db.url</urlKey>
-                                    <schemaNamesKey>db.schemaNames</schemaNamesKey>
+                                    <schemaNamesKey>db.schemaName</schemaNamesKey>
                                 </propertyDatabase>
                             </propertyDatabases>
                             <scriptEncoding>UTF-8</scriptEncoding>

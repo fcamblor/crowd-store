@@ -12,7 +12,7 @@
     <tx:annotation-driven transaction-manager="txManager"/>
     <bean id="dataSource" class="com.crowdstore.persistence.common.UTF8Datasource" destroy-method="close">
         <property name="driverClassName" value="${db.driver}"/>
-        <property name="url" value="${db.url}"/>
+        <property name="url" value="${db.url}/${db.schemaName}"/>
         <property name="username" value="${db.username}"/>
         <property name="password" value="${db.password}"/>
         <!-- See http://stackoverflow.com/questions/4950396/tomcat-configuration-using-dbcp -->
