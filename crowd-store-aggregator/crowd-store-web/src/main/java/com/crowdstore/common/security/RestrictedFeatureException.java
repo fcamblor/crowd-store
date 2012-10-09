@@ -12,6 +12,10 @@ public class RestrictedFeatureException extends RuntimeException {
     private GlobalAuthorization[] requiredAuthorizations;
     private ConditionnalOperator operator;
 
+    public RestrictedFeatureException(String formattedMessage, Object... args){
+        super(String.format(formattedMessage, args));
+    }
+
     public RestrictedFeatureException(GlobalAuthorization[] requiredAuthorizations, ConditionnalOperator operator) {
         super(buildMessage(requiredAuthorizations, operator));
         this.requiredAuthorizations = requiredAuthorizations;
