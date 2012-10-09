@@ -6,9 +6,9 @@
 
     <select id="getStoreUsers" parameterType="String" resultMap="com.crowdstore.persistence.mappings.users.UserIdentity">
         SELECT U.id as 'id', U.FIRST_NAME as 'first_name', U.LAST_NAME as 'last_name', U.EMAIL as 'email'
-        FROM USER U
-        INNER JOIN USER_STORE US ON US.store_id = U.id
-        INNER JOIN STORE S ON US.store_id = S.id
+        FROM user U
+        INNER JOIN user_store US ON US.store_id = U.id
+        INNER JOIN store S ON US.store_id = S.id
         WHERE S.name = #{param}
     </select>
 
