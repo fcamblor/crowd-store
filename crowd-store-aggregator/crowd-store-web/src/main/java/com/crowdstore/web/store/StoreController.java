@@ -3,7 +3,6 @@ package com.crowdstore.web.store;
 import com.crowdstore.common.annotations.InjectLogger;
 import com.crowdstore.models.users.UserIdentity;
 import com.crowdstore.service.store.StoreService;
-import com.crowdstore.web.common.annotations.PublicSpace;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,6 @@ public class StoreController {
     @Inject
     StoreService storeService;
 
-    @PublicSpace
     @RequestMapping(value="/{storeToken}/users", method = RequestMethod.GET)
     public
     @ResponseBody
