@@ -1,16 +1,23 @@
 package com.crowdstore.models.users;
 
 import com.crowdstore.models.role.GlobalRole;
+import com.crowdstore.models.role.StoreRole;
 import com.crowdstore.models.security.GlobalAuthorization;
+import com.crowdstore.models.security.StoreAuthorization;
+import com.google.common.collect.Maps;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author fcamblor
  */
 public class AuthenticatedUser extends User {
+
     private Locale locale;
     private GlobalRole globalRole;
+    private Map<String, StoreRole> storeRoles;
 
     public AuthenticatedUser(UserIdentity identity) {
         super(identity);
@@ -38,11 +45,32 @@ public class AuthenticatedUser extends User {
         return this;
     }
 
-    public GlobalRole getGlobalRole() {
-        return this.globalRole;
+    public void setStoreRoles(Map<String, StoreRole> storeRoles) {
+        this.storeRoles = storeRoles;
+    }
+
+    public Map<String, List<StoreAuthorization>> getStoresAuthorizations(){
+        return Maps.transformValues(this.storeRoles, StoreRole.TO_STORE_AUTHORIZATIONS);
+    }
+
+    public List<StoreAuthorization> getStoreAuthorization(String storeName){
+        StoreRole storeRole = this.storeRoles.get(storeName);
+        if(storeRole==null){
+            return null;
+        }
+
+        return storeRole.getAuthorizations();
+    }
+
+    public List<GlobalAuthorization> getGlobalAuthorizations() {
+        return this.globalRole.getAuthorizations();
     }
 
     public boolean hasGlobalAuthorization(GlobalAuthorization authorization) {
         return globalRole.getAuthorizations().contains(authorization);
+    }
+
+    public boolean belongsToStore(String storeName) {
+        return storeRoles.containsKey(storeName);
     }
 }
