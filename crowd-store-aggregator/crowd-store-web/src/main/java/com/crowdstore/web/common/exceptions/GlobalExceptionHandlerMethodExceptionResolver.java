@@ -1,5 +1,7 @@
-package com.crowdstore.web.exceptions;
+package com.crowdstore.web.common.exceptions;
 
+import com.crowdstore.common.annotations.InjectLogger;
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -12,6 +14,7 @@ import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -21,6 +24,9 @@ import java.util.List;
  *         several @ExceptionHandler(X.class) in every @Controller,
  */
 public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHandlerExceptionResolver {
+
+    @InjectLogger
+    Logger logger;
 
     private static final ExceptionHandlerMethodResolver CURRENT_CLASS_EXCEPTION_HANDLER_RESOLVER =
             new ExceptionHandlerMethodResolver(GlobalExceptionHandlerMethodExceptionResolver.class);
@@ -48,5 +54,13 @@ public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHand
     @ResponseBody
     List<ObjectError> handleBindingFailure(MethodArgumentNotValidException exception) {
         return exception.getBindingResult().getAllErrors();
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public
+    @ResponseBody
+    void handleException(HttpServletRequest request, Exception exception) {
+        logger.error("Error on "+request.getRequestURI(), exception);
     }
 }

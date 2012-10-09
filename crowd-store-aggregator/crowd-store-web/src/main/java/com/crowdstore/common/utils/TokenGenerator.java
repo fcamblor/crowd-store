@@ -1,4 +1,4 @@
-package com.crowdstore.utils;
+package com.crowdstore.common.utils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

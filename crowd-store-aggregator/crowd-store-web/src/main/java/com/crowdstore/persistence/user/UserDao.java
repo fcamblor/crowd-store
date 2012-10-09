@@ -1,4 +1,4 @@
-package com.crowdstore.persistence.user.store;
+package com.crowdstore.persistence.user;
 
 /**
  * @author damienriccio

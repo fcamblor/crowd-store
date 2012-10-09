@@ -1,6 +1,6 @@
-package com.crowdstore.web.config;
+package com.crowdstore.web.common.config;
 
-import com.crowdstore.web.exceptions.GlobalExceptionHandlerMethodExceptionResolver;
+import com.crowdstore.web.common.exceptions.GlobalExceptionHandlerMethodExceptionResolver;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.deser.std.CalendarDeserializer;
 import org.codehaus.jackson.map.deser.std.StdDeserializer;

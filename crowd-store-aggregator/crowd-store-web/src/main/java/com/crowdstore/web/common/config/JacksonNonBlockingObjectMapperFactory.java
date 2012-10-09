@@ -1,4 +1,4 @@
-package com.crowdstore.web.config;
+package com.crowdstore.web.common.config;
 
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
