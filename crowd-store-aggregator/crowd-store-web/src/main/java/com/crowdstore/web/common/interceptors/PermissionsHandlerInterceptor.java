@@ -55,7 +55,7 @@ public class PermissionsHandlerInterceptor extends HandlerInterceptorAdapter {
 
                 if (!Permissions.hasAuthorizations(user, operator, globalAuthorization)) {
                     LOG.warn("User {} and globalAuthorizations {} cannot access {} {} (insufficient privileges !)",
-                            user.getIdentity().getEmail(), user.getGlobalRole().getAuthorizations(),
+                            user.getIdentity().getEmail(), user.getGlobalAuthorizations(),
                             request.getMethod(), request.getRequestURI());
                     HttpResponses.sendJSONRedirect(authUrl, request, response);
                     return false;
