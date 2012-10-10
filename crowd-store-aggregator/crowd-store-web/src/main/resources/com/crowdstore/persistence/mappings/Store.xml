@@ -6,8 +6,6 @@
 
     <resultMap id="Store" type="com.crowdstore.models.store.Store"
                extends="com.crowdstore.persistence.mappings.commons.Identifiable">
-        <result column="name" property="name"/>
-        <!--// todo to complete-->
     </resultMap>
 
 </mapper>
