@@ -5,7 +5,9 @@ package com.crowdstore.test;
  */
 
 import com.crowdstore.test.mockcontext.WebContextLoader;
+import com.crowdstore.test.rules.LoggingDbChanges;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,6 +29,10 @@ public abstract class ApplicationContextAwareTest {
 
     @Inject
     private WebApplicationContext wac;
+
+    @Inject
+    @Rule
+    public LoggingDbChanges loggingDbChanges;
 
     @Before
     public void setup(){
