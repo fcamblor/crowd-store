@@ -11,6 +11,8 @@ import java.lang.reflect.Field;
 import java.util.Properties;
 
 /**
+ * This class was strongly inspired from class given in this issue http://code.google.com/p/mybatis/issues/detail?id=679
+ *
  * Some MyBatis configuration couldn't be specified in Spring's context file.
  * MyBatis is used mybatis-config.xml file for it. Therefore has been
  * implemented this class that allows to specify almost all parameters in
