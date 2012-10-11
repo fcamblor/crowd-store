@@ -110,7 +110,7 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <mvc:resources mapping="/pub/**" location="/pub/"/>
+    <mvc:resources mapping="/**" location="/app/"/>
 
     <!--Multipart resolver-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
