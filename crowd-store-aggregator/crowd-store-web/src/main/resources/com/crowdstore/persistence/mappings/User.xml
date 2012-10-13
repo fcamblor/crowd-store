@@ -8,4 +8,17 @@
                extends="com.crowdstore.persistence.mappings.commons.Identifiable">
     </resultMap>
 
+    <resultMap id="User" type="com.crowdstore.models.users.User"
+               extends="com.crowdstore.persistence.mappings.commons.IdentifiableContainer">
+        <association property="identity" resultMap="UserIdentity" columnPrefix="identity." />
+    </resultMap>
+    
+    <resultMap id="UserStoreRole" type="com.crowdstore.models.users.AuthenticatedUser$UserStoreRole">
+        <id column="storeName" property="storeName" />
+    </resultMap>
+    
+    <resultMap id="AuthenticatedUser" type="com.crowdstore.models.users.AuthenticatedUser" extends="User">
+        <collection property="storeRoles" resultMap="UserStoreRole" columnPrefix="storeRoles." />
+    </resultMap>
+
 </mapper>

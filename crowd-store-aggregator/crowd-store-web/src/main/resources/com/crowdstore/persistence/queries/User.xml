@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crowdstore.persistence.user.UserDaoImpl">
+
+    <select id="getStoreUsers" parameterType="com.crowdstore.models.auth.Credentials"
+            resultMap="com.crowdstore.persistence.mappings.users.AuthenticatedUser">
+        SELECT
+          u.first_name AS 'identity.firstName',
+          u.last_name AS 'identity.lastName',
+          u.email AS 'identity.email',
+          'fr_FR' AS 'locale',
+          u.global_role AS 'globalRole',
+          us.role AS 'storeRoles.role',
+          s.name AS 'storeRoles.storeName'
+        FROM user u
+           LEFT JOIN user_store us ON u.id = us.user_id
+           LEFT JOIN store s ON s.id = us.store_id
+        WHERE email=#{login} AND hashed_password=#{hashedPassword}
+    </select>
+</mapper>
