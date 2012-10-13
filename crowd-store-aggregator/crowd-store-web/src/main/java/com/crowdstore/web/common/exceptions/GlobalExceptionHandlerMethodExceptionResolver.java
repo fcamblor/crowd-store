@@ -1,7 +1,7 @@
 package com.crowdstore.web.common.exceptions;
 
-import com.crowdstore.common.annotations.InjectLogger;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -25,8 +25,7 @@ import java.util.List;
  */
 public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHandlerExceptionResolver {
 
-    @InjectLogger
-    Logger logger;
+    private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandlerMethodExceptionResolver.class);
 
     private static final ExceptionHandlerMethodResolver CURRENT_CLASS_EXCEPTION_HANDLER_RESOLVER =
             new ExceptionHandlerMethodResolver(GlobalExceptionHandlerMethodExceptionResolver.class);
