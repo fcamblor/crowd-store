@@ -7,4 +7,6 @@ package com.crowdstore.service.security;
  */
 public interface PermissionsService {
     boolean canBrowseStoreUsers(String storeName);
+    boolean canCreateNewStore();
+    boolean canDeleteStores(String... storeNames);
 }
