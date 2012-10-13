@@ -7,7 +7,7 @@
     <insert id="createStore" parameterType="com.crowdstore.models.store.FlatStore"
             useGeneratedKeys="true" keyProperty="identity.id">
         INSERT INTO store(name, logically_deleted)
-        VALUES (#{identity.name}, 1)
+        VALUES (#{identity.name}, 0)
     </insert>
 
     <select id="getStoreUsers" parameterType="String" resultMap="com.crowdstore.persistence.mappings.users.UserIdentity">
