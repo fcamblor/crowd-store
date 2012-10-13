@@ -18,7 +18,7 @@
         WHERE S.name = #{param}
     </select>
 
-    <delete id="deleteStoresByNames" parameterType="String[]">
+    <delete id="deleteStoresByNames">
         DELETE FROM store
         WHERE name IN
         <foreach collection="array" item="name" open="(" separator="," close=")">
