@@ -9,7 +9,7 @@
     </resultMap>
 
     <resultMap id="IdentifiableContainer" type="com.crowdstore.models.common.IdentifiableContainer">
-        <id column="identity.id" property="identity.id"/>
+        <id column="identity.id" />
     </resultMap>
 
 </mapper>
