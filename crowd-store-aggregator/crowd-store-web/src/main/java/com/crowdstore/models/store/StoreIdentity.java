@@ -16,7 +16,8 @@ public class StoreIdentity extends GenericIdentifiable {
         return name;
     }
 
-    public void setName(String name) {
+    public StoreIdentity setName(String name) {
         this.name = name;
+        return this;
     }
 }
