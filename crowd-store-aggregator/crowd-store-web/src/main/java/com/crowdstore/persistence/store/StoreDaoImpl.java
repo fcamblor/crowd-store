@@ -1,5 +1,6 @@
 package com.crowdstore.persistence.store;
 
+import com.crowdstore.models.store.FlatStore;
 import com.crowdstore.models.users.UserIdentity;
 import com.crowdstore.persistence.common.DaoSupport;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -15,5 +16,15 @@ public class StoreDaoImpl extends SqlSessionDaoSupport implements StoreDao {
     @Override
     public List<UserIdentity> getStoreUsers(String storeToken) {
         return DaoSupport.selectList(this, "getStoreUsers", storeToken);
+    }
+
+    @Override
+    public void createStore(FlatStore store) {
+        DaoSupport.insert(this, "createStore", store);
+    }
+
+    @Override
+    public void hardDeleteStoresByNames(String... storeNames) {
+        DaoSupport.delete(this, "deleteStoresByNames", storeNames);
     }
 }

@@ -4,6 +4,12 @@
 
 <mapper namespace="com.crowdstore.persistence.store.StoreDaoImpl">
 
+    <insert id="createStore" parameterType="com.crowdstore.models.store.FlatStore"
+            useGeneratedKeys="true" keyProperty="identity.id">
+        INSERT INTO store(name, logically_deleted)
+        VALUES (#{identity.name}, 1)
+    </insert>
+
     <select id="getStoreUsers" parameterType="String" resultMap="com.crowdstore.persistence.mappings.users.UserIdentity">
         SELECT U.id as 'id', U.FIRST_NAME as 'first_name', U.LAST_NAME as 'last_name', U.EMAIL as 'email'
         FROM user U
@@ -11,5 +17,14 @@
         INNER JOIN store S ON US.store_id = S.id
         WHERE S.name = #{param}
     </select>
+
+    <delete id="deleteStoresByNames" parameterType="String[]">
+        DELETE FROM store
+        WHERE name IN
+        <foreach collection="array" item="name" open="(" separator="," close=")">
+            #{name}
+        </foreach>
+
+    </delete>
 
 </mapper>
