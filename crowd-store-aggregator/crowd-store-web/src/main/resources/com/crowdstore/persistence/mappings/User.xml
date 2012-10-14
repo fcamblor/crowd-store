@@ -6,6 +6,9 @@
 
     <resultMap id="UserIdentity" type="com.crowdstore.models.users.UserIdentity"
                extends="com.crowdstore.persistence.mappings.commons.Identifiable">
+        <result property="email" column="email" />
+        <result property="firstName" column="firstName" />
+        <result property="lastName" column="lastName" />
     </resultMap>
 
     <resultMap id="User" type="com.crowdstore.models.users.User"
@@ -14,11 +17,22 @@
     </resultMap>
     
     <resultMap id="UserStoreRole" type="com.crowdstore.models.users.AuthenticatedUser$UserStoreRole">
-        <id column="storeName" property="storeName" />
+        <id property="storeName" column="storeName" />
+        <result property="role" column="role" />
     </resultMap>
     
-    <resultMap id="AuthenticatedUser" type="com.crowdstore.models.users.AuthenticatedUser" extends="User">
+    <resultMap id="_AuthenticatedUser" type="com.crowdstore.models.users.AuthenticatedUser" extends="User">
+        <result property="locale" column="locale" />
+        <result property="globalRole" column="globalRole" />
         <collection property="storeRoles" resultMap="UserStoreRole" columnPrefix="storeRoles." />
+    </resultMap>
+
+    <!--
+    Temporary (I hope !) workaround to fix
+    https://groups.google.com/forum/?fromgroups=#!topic/mybatis-user/myPouCEgF5c
+    -->
+    <resultMap id="AuthenticatedUser" type="com.crowdstore.persistence.user.UserDaoImpl$TmpAuthenticatedUser"
+               extends="_AuthenticatedUser">
     </resultMap>
 
 </mapper>
