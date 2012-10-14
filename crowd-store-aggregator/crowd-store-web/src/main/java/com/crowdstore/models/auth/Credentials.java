@@ -10,7 +10,11 @@ public class Credentials implements Serializable {
     String hashedPassword;
     boolean rememberMe;
 
-    public Credentials(){}
+    protected Credentials(){}
+    public Credentials(String login, String hashedPassword) {
+        this.login = login;
+        this.hashedPassword = hashedPassword;
+    }
 
     public Credentials setLogin(String _login){
         this.login = _login;

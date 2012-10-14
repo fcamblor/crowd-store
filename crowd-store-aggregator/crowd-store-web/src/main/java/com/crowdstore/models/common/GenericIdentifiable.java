@@ -7,11 +7,11 @@ public class GenericIdentifiable implements Identifiable {
     private Long id;
 
     /**
-     * This constructor should never be called directly in application code
-     * It is only present for introspection frameworks such as MyBatis which need them to instantiate
-     * new instances of the Identifiable
+     * This constructor should not be public
+     * It is protected just in order to exist for subclasses and
+     * introspection-based frameworks such as MyBatis
      */
-    public GenericIdentifiable() {
+    protected GenericIdentifiable() {
         this(null);
     }
 

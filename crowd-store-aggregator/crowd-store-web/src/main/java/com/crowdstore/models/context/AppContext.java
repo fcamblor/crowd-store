@@ -20,7 +20,7 @@ public class AppContext implements Serializable, Cloneable {
     private boolean writableAuthenticatedUser = false;
     private AuthenticatedUser authenticatedUser;
 
-    public AppContext() {
+    protected AppContext() {
         this(null);
     }
 

@@ -9,11 +9,11 @@ public abstract class GenericIdentifiableContainer<T extends Identifiable> imple
     protected T identity;
 
     /**
-     * Note : subclasses having a constructor without parameters should ideally declare it deprecated
-     * in order to not being called by production code.
-     * It should be there only for introspection-based frameworks such as MyBatis
+     * This constructor should not be public
+     * It is protected just in order to exist for subclasses and
+     * introspection-based frameworks such as MyBatis
      */
-    public GenericIdentifiableContainer() {
+    protected GenericIdentifiableContainer() {
         this(null);
     }
 

@@ -7,13 +7,7 @@ import com.crowdstore.models.common.GenericIdentifiableContainer;
  */
 public class User extends GenericIdentifiableContainer<UserIdentity> {
 
-    /**
-     * @deprecated Use constructor with identity instead !
-     */
-    public User() {
-        super(null);
-    }
-
+    protected User() { super(null); }
     public User(UserIdentity identity) {
         super(identity);
     }

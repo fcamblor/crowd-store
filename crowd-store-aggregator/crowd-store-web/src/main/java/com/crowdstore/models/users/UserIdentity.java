@@ -10,7 +10,7 @@ public class UserIdentity extends GenericIdentifiable {
     private String lastName;
     private String email;
 
-    public UserIdentity() {
+    protected UserIdentity() {
         super(null);
     }
 

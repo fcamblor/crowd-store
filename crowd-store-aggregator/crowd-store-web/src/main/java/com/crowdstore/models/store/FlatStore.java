@@ -7,6 +7,7 @@ import com.crowdstore.models.common.GenericIdentifiableContainer;
  */
 public class FlatStore extends GenericIdentifiableContainer<StoreIdentity> {
 
+    protected FlatStore() { super(); }
     public FlatStore(StoreIdentity identity){
         super(identity);
     }
