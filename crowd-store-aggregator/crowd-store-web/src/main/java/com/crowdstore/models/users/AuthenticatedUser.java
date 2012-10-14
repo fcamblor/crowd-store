@@ -4,6 +4,7 @@ import com.crowdstore.models.role.GlobalRole;
 import com.crowdstore.models.role.StoreRole;
 import com.crowdstore.models.security.GlobalAuthorization;
 import com.crowdstore.models.security.StoreAuthorization;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,13 +18,14 @@ public class AuthenticatedUser extends User {
 
     private Locale locale;
     private List<GlobalAuthorization> globalAuthorizations;
-    private Map<String, List<StoreAuthorization>> storeRoles;
+    private Map<String, List<StoreAuthorization>> storeAuthorizations;
 
     // For MyBatis Map<> special mapping
     // Dunno if we could avoid this...
     public static class UserStoreRole {
         String storeName;
         StoreRole role;
+        protected UserStoreRole(){}
         public UserStoreRole(String storeName, StoreRole role) {
             this.storeName = storeName;
             this.role = role;
@@ -34,8 +36,15 @@ public class AuthenticatedUser extends User {
         public void setRole(StoreRole _role){
             this.role = _role;
         }
+        public String getStoreName() {
+            return storeName;
+        }
+        public StoreRole getRole() {
+            return role;
+        }
     }
 
+    protected AuthenticatedUser() { this(null); }
     public AuthenticatedUser(UserIdentity identity) {
         super(identity);
     }
@@ -57,21 +66,23 @@ public class AuthenticatedUser extends User {
         return this;
     }
 
+    @JsonIgnore
     public AuthenticatedUser setGlobalRole(GlobalRole _globalRole) {
         this.globalAuthorizations = _globalRole.getAuthorizations();
         return this;
     }
 
+    @JsonIgnore
     public AuthenticatedUser setStoreRoles(List<UserStoreRole> storeRoles) {
-        this.storeRoles = new HashMap<>();
+        this.storeAuthorizations = new HashMap<>();
         for(UserStoreRole storeRole : storeRoles){
-            this.storeRoles.put(storeRole.storeName, storeRole.role.getAuthorizations());
+            this.storeAuthorizations.put(storeRole.storeName, storeRole.role.getAuthorizations());
         }
         return this;
     }
 
     public Map<String, List<StoreAuthorization>> getStoresAuthorizations(){
-        return this.storeRoles;
+        return this.storeAuthorizations;
     }
 
     public List<StoreAuthorization> getStoreAuthorizations(String storeName){
@@ -91,6 +102,6 @@ public class AuthenticatedUser extends User {
     }
 
     public boolean belongsToStore(String storeName) {
-        return storeRoles.containsKey(storeName);
+        return storeAuthorizations.containsKey(storeName);
     }
 }
