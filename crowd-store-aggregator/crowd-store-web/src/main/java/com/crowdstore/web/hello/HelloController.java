@@ -12,7 +12,6 @@ import com.crowdstore.web.common.annotations.PublicSpace;
 import com.crowdstore.web.common.annotations.RequireGlobalAuthorizations;
 import com.crowdstore.web.common.result.RequestResult;
 import com.crowdstore.web.common.session.SessionHolder;
-import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +22,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -96,7 +96,12 @@ public class HelloController {
                         .setLastName("toto")
         ).setLocale(Locale.FRANCE)
                 .setGlobalRole(GlobalRole.valueOf(globalRole))
-                .setStoreRoles(ImmutableMap.of("4sh store", StoreRole.ADMIN, "4sh soccer5", StoreRole.CUSTOMER));
+                .setStoreRoles(
+                        Arrays.asList(new AuthenticatedUser.UserStoreRole[]{
+                                new AuthenticatedUser.UserStoreRole("4sh store", StoreRole.ADMIN),
+                                new AuthenticatedUser.UserStoreRole("4sh soccer5", StoreRole.CUSTOMER)
+                        })
+                );
 
         // Storing authenticatedUser into the session
         SessionHolder.setAuthenticatedUser(request, response, authenticatedUser);
