@@ -22,4 +22,9 @@ public class User extends GenericIdentifiableContainer<UserIdentity> {
     public UserIdentity getIdentity() {
         return identity;
     }
+
+    @Override
+    public void setIdentity(UserIdentity identity) {
+        this.identity = identity;
+    }
 }

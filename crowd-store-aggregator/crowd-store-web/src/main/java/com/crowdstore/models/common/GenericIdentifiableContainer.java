@@ -21,8 +21,8 @@ public abstract class GenericIdentifiableContainer<T extends Identifiable> imple
         this.identity = identity;
     }
 
-    // Note that getIdentity() is not implemented here for a simple reason : type erasure
-    // If we would have implemented getIdentity() here, return type after compilation would have been Identifiable
+    // Note that getIdentity()/setIdentity() are not implemented here for a simple reason : type erasure
+    // If we would have implemented these methods here, parameterized type after compilation would have been Identifiable
     // and introspection-based frameworks such as MyBatis will complain in that case, and won't be able to set
     // subclass fields on this types
 }

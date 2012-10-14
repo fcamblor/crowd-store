@@ -30,4 +30,5 @@ public interface IdentifiableContainer<T extends Identifiable> extends Serializa
             };
 
     T getIdentity();
+    void setIdentity(T identity);
 }

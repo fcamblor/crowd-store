@@ -21,4 +21,9 @@ public class Store extends GenericIdentifiableContainer<StoreIdentity> {
     public StoreIdentity getIdentity() {
         return identity;
     }
+
+    @Override
+    public void setIdentity(StoreIdentity identity) {
+        this.identity = identity;
+    }
 }
