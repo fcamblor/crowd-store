@@ -1,6 +1,8 @@
 package com.crowdstore.persistence.common;
 
+import org.apache.ibatis.session.AutoMappingBehavior;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
@@ -47,8 +49,8 @@ public class MybatisSessionFactoryBean extends SqlSessionFactoryBean {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-//        configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(defaultIfBlank(
-//                props.getProperty("autoMappingBehavior"), "PARTIAL")));
+        configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(defaultIfBlank(
+                props.getProperty("autoMappingBehavior"), "PARTIAL")));
         configuration.setCacheEnabled(booleanValueOf(props.getProperty("cacheEnabled"), true));
         configuration.setLazyLoadingEnabled(booleanValueOf(props.getProperty("lazyLoadingEnabled"), false));
         configuration.setAggressiveLazyLoading(booleanValueOf(props.getProperty("aggressiveLazyLoading"), true));
@@ -56,9 +58,9 @@ public class MybatisSessionFactoryBean extends SqlSessionFactoryBean {
                 .setMultipleResultSetsEnabled(booleanValueOf(props.getProperty("multipleResultSetsEnabled"), true));
         configuration.setUseColumnLabel(booleanValueOf(props.getProperty("useColumnLabel"), true));
         configuration.setUseGeneratedKeys(booleanValueOf(props.getProperty("useGeneratedKeys"), false));
-//        configuration.setDefaultExecutorType(ExecutorType.valueOf(defaultIfBlank(
-//                props.getProperty("defaultExecutorType"), "SIMPLE")));
-//        configuration.setDefaultStatementTimeout(toInt(props.getProperty("defaultStatementTimeout"), 0));
+        configuration.setDefaultExecutorType(ExecutorType.valueOf(defaultIfBlank(
+                props.getProperty("defaultExecutorType"), "SIMPLE")));
+        configuration.setDefaultStatementTimeout(Integer.parseInt(defaultIfBlank(props.getProperty("defaultStatementTimeout"), "0")));
         configuration.setMapUnderscoreToCamelCase(booleanValueOf(props.getProperty("mapUnderscoreToCamelCase"), false));
         configuration.setSafeRowBoundsEnabled(booleanValueOf(props.getProperty("safeRowBoundsEnabled"), true));
 
@@ -76,6 +78,10 @@ public class MybatisSessionFactoryBean extends SqlSessionFactoryBean {
      */
     protected Boolean booleanValueOf(String value, Boolean defaultValue) {
         return value == null ? defaultValue : Boolean.valueOf(value);
+    }
+
+    protected <T> T defaultIfBlank(T value, T defaultValue) {
+        return value == null ? defaultValue : value;
     }
 
 }

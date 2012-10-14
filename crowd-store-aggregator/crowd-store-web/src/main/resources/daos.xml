@@ -49,6 +49,7 @@
         <property name="configurationProperties">
             <util:properties>
                 <prop key="mapUnderscoreToCamelCase">true</prop>
+                <!--<prop key="autoMappingBehavior">FULL</prop>-->
             </util:properties>
         </property>
     </bean>
