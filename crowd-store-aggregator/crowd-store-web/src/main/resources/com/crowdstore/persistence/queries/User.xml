@@ -4,9 +4,10 @@
 
 <mapper namespace="com.crowdstore.persistence.user.UserDaoImpl">
 
-    <select id="getStoreUsers" parameterType="com.crowdstore.models.auth.Credentials"
+    <select id="findAuthenticatedUserByCredentials" parameterType="com.crowdstore.models.auth.Credentials"
             resultMap="com.crowdstore.persistence.mappings.users.AuthenticatedUser">
         SELECT
+          u.id AS 'identity.id',
           u.first_name AS 'identity.firstName',
           u.last_name AS 'identity.lastName',
           u.email AS 'identity.email',
