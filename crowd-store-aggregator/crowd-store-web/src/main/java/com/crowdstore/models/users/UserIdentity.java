@@ -3,13 +3,24 @@ package com.crowdstore.models.users;
 import com.crowdstore.models.common.GenericIdentifiable;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author fcamblor
  */
 public class UserIdentity extends GenericIdentifiable {
+    @NotNull
+    @Size(min=2, max=40)
     private String firstName;
+    @NotNull
+    @Size(min=2, max=40)
     private String lastName;
+    @NotNull
+    @Email
+    @Size(max=40)
     private String email;
 
     protected UserIdentity() {

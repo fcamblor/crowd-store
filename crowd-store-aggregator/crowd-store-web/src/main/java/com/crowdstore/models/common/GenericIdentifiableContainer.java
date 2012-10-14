@@ -1,11 +1,14 @@
 package com.crowdstore.models.common;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * @author fcamblor
  */
 public abstract class GenericIdentifiableContainer<T extends Identifiable> implements IdentifiableContainer<T>, Serializable {
+    @NotNull @Valid
     protected T identity;
 
     /**

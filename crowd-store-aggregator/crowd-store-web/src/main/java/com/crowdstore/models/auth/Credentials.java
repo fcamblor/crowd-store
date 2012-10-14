@@ -1,12 +1,18 @@
 package com.crowdstore.models.auth;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
  * @author fcamblor
  */
 public class Credentials implements Serializable {
+    @NotNull
+    @Size(min=4,max=40)
     String login;
+    @NotNull
+    @Size(min=128,max=128)
     String hashedPassword;
     boolean rememberMe;
 
