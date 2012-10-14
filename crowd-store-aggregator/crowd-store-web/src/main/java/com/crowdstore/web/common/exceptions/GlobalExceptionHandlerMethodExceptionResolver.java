@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHan
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author fcamblor
@@ -27,15 +29,30 @@ public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHand
 
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandlerMethodExceptionResolver.class);
 
-    private static final ExceptionHandlerMethodResolver CURRENT_CLASS_EXCEPTION_HANDLER_RESOLVER =
-            new ExceptionHandlerMethodResolver(GlobalExceptionHandlerMethodExceptionResolver.class);
+    private static final ConcurrentMap<Class, ExceptionHandlerMethodResolver> EXCEPTIONS_HANDLER_RESOLVERS = new ConcurrentHashMap<>();
+
+    static {
+        EXCEPTIONS_HANDLER_RESOLVERS.putIfAbsent(GlobalExceptionHandlerMethodExceptionResolver.class,
+                new ExceptionHandlerMethodResolver(GlobalExceptionHandlerMethodExceptionResolver.class));
+    }
 
     @Override
     // Instead of looking at handlerMethod.bean instance, looking at current exception resolver instance
     // which should contain @ExceptionHandler annotated methods
     protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
-        Method method = CURRENT_CLASS_EXCEPTION_HANDLER_RESOLVER.resolveMethod(exception);
-        return (method != null ? new ServletInvocableHandlerMethod(this, method) : null);
+        Class<?> handlerMethodType = handlerMethod.getBeanType();
+        if(!EXCEPTIONS_HANDLER_RESOLVERS.containsKey(handlerMethodType)){
+            // Surrounding the putIfAbsent() method with a containsKey test because instanciation of ExceptionHandlerMethodResolver
+            // is costly
+            EXCEPTIONS_HANDLER_RESOLVERS.putIfAbsent(handlerMethodType,
+                    new ExceptionHandlerMethodResolver(handlerMethodType));
+        }
+        Method resolvedMethod = EXCEPTIONS_HANDLER_RESOLVERS.get(handlerMethodType).resolveMethod(exception);
+        // If method handler is not found in handlerMethodType, falling back to current class
+        // handling exceptions globally
+        resolvedMethod = resolvedMethod != null ? resolvedMethod : EXCEPTIONS_HANDLER_RESOLVERS.get(this.getClass()).resolveMethod(exception);
+
+        return (resolvedMethod != null ? new ServletInvocableHandlerMethod(this, resolvedMethod) : null);
     }
 
     // These @ExceptionHandler methods will be executed instead of the @Controller ones !
