@@ -6,10 +6,7 @@ import com.crowdstore.models.security.GlobalAuthorization;
 import com.crowdstore.models.security.StoreAuthorization;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author fcamblor
@@ -47,6 +44,8 @@ public class AuthenticatedUser extends User {
     protected AuthenticatedUser() { this(null); }
     public AuthenticatedUser(UserIdentity identity) {
         super(identity);
+        this.storeAuthorizations = new HashMap<>();
+        this.globalAuthorizations = new ArrayList<>();
     }
 
     /**
@@ -68,21 +67,32 @@ public class AuthenticatedUser extends User {
 
     @JsonIgnore
     public AuthenticatedUser setGlobalRole(GlobalRole _globalRole) {
-        this.globalAuthorizations = _globalRole.getAuthorizations();
+        this.globalAuthorizations.clear();
+        this.globalAuthorizations.addAll(_globalRole.getAuthorizations());
         return this;
     }
 
     @JsonIgnore
     public AuthenticatedUser setStoreRoles(List<UserStoreRole> storeRoles) {
-        this.storeAuthorizations = new HashMap<>();
+        this.storeAuthorizations.clear();
         for(UserStoreRole storeRole : storeRoles){
             this.storeAuthorizations.put(storeRole.storeName, storeRole.role.getAuthorizations());
         }
         return this;
     }
 
+    // Private setter, used only by introspection-based frameworks such as Jackson (in unit tests for instance)
+    private void setStoreAuthorizations(Map<String, List<StoreAuthorization>> storeAuthorizations) {
+        this.storeAuthorizations = storeAuthorizations;
+    }
+
     public Map<String, List<StoreAuthorization>> getStoresAuthorizations(){
         return this.storeAuthorizations;
+    }
+
+    // Private setter, used only by introspection-based frameworks such as Jackson (in unit tests for instance)
+    private void setGlobalAuthorizations(List<GlobalAuthorization> globalAuthorizations) {
+        this.globalAuthorizations = globalAuthorizations;
     }
 
     public List<StoreAuthorization> getStoreAuthorizations(String storeName){
