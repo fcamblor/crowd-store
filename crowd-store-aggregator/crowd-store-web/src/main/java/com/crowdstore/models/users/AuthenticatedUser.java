@@ -16,6 +16,8 @@ public class AuthenticatedUser extends User {
     private Locale locale;
     private List<GlobalAuthorization> globalAuthorizations;
     private Map<String, List<StoreAuthorization>> storeAuthorizations;
+    @JsonIgnore
+    private transient AuthorizationsResolver authorizationsResolver = new AuthorizationsResolver();
 
     // For MyBatis Map<> special mapping
     // Dunno if we could avoid this...
@@ -38,6 +40,19 @@ public class AuthenticatedUser extends User {
         }
         public StoreRole getRole() {
             return role;
+        }
+    }
+
+    /**
+     * Simple User authorizations visitor, aimed at being subclassed (in test cases for instance) to be able to
+     * mock authorization resolver in order to say, for instance, that given user has always *every* authorizations
+     */
+    public static class AuthorizationsResolver {
+        public List<GlobalAuthorization> resolveGlobalAuthorizationOf(AuthenticatedUser user) {
+            return user.globalAuthorizations;
+        }
+        public List<StoreAuthorization> resolveStoreAuthorizationsOf(AuthenticatedUser user, String storeName) {
+            return user.storeAuthorizations.get(storeName);
         }
     }
 
@@ -96,7 +111,7 @@ public class AuthenticatedUser extends User {
     }
 
     public List<StoreAuthorization> getStoreAuthorizations(String storeName){
-        return this.getStoresAuthorizations().get(storeName);
+        return this.authorizationsResolver.resolveStoreAuthorizationsOf(this, storeName);
     }
 
     public boolean hasStoreAuthorization(String storeName, StoreAuthorization storeAuthorization) {
@@ -104,7 +119,7 @@ public class AuthenticatedUser extends User {
     }
 
     public List<GlobalAuthorization> getGlobalAuthorizations() {
-        return this.globalAuthorizations;
+        return this.authorizationsResolver.resolveGlobalAuthorizationOf(this);
     }
 
     public boolean hasGlobalAuthorization(GlobalAuthorization authorization) {
@@ -113,5 +128,11 @@ public class AuthenticatedUser extends User {
 
     public boolean belongsToStore(String storeName) {
         return storeAuthorizations.containsKey(storeName);
+    }
+
+    public AuthorizationsResolver replaceAuthorizationResolverWith(AuthorizationsResolver authorizationsResolver) {
+        AuthorizationsResolver oldAuthorizationResolver = this.authorizationsResolver;
+        this.authorizationsResolver = authorizationsResolver;
+        return oldAuthorizationResolver;
     }
 }
