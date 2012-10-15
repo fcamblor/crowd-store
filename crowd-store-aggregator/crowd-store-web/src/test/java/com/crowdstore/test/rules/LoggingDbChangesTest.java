@@ -73,7 +73,6 @@ public class LoggingDbChangesTest extends ApplicationContextAwareTest {
         }
     }
 
-    @Ignore("Don't know why, but test is failing whereas in debug, it doesn't fail...")
     @Test(expected = IllegalStateException.class)
     public void dataAddedAndNotCleanedShouldThrowException(){
         Description desc;
