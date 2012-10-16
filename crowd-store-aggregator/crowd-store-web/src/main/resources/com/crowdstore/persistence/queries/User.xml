@@ -4,8 +4,7 @@
 
 <mapper namespace="com.crowdstore.persistence.user.UserDaoImpl">
 
-    <select id="findAuthenticatedUserByCredentials" parameterType="com.crowdstore.models.auth.Credentials"
-            resultMap="com.crowdstore.persistence.mappings.users.AuthenticatedUser">
+    <sql id="baseAuthenticatedUserSelect">
         SELECT
           u.id AS 'identity.id',
           u.first_name AS 'identity.firstName',
@@ -18,6 +17,43 @@
         FROM user u
            LEFT JOIN user_store us ON u.id = us.user_id
            LEFT JOIN store s ON s.id = us.store_id
+    </sql>
+
+    <select id="findAuthenticatedUserByCredentials" parameterType="com.crowdstore.models.auth.Credentials"
+            resultMap="com.crowdstore.persistence.mappings.users.AuthenticatedUser">
+        <include refid="baseAuthenticatedUserSelect" />
         WHERE email=#{login} AND hashed_password=#{hashedPassword}
     </select>
+
+    <select id="findAuthenticatedUserByPrivateToken" parameterType="String"
+            resultMap="com.crowdstore.persistence.mappings.users.AuthenticatedUser">
+        <include refid="baseAuthenticatedUserSelect" />
+        WHERE private_token = #{privateToken}
+    </select>
+
+    <insert id="createUser" parameterType="com.crowdstore.models.users.FlatUser"
+            useGeneratedKeys="true" keyProperty="identity.id">
+        INSERT INTO user (email, hashed_password, first_name, last_name, global_role, logically_deleted, private_token)
+        VALUES (
+          #{identity.email}, #{hashedPassword}, #{identity.firstName}, #{identity.lastName},
+          #{globalRoleName}, 0, #{privateToken}
+        )
+    </insert>
+
+    <delete id="detachStoresToUsers" parameterType="Long[]">
+        DELETE FROM user_store
+        WHERE user_id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="hardDeleteUsersByIds" parameterType="Long[]">
+        DELETE FROM user
+        WHERE id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>
