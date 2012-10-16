@@ -1,6 +1,7 @@
 package com.crowdstore.service.store;
 
 import com.crowdstore.common.annotations.InjectLogger;
+import com.crowdstore.models.role.StoreRole;
 import com.crowdstore.models.store.FlatStore;
 import com.crowdstore.models.users.UserIdentity;
 import com.crowdstore.persistence.store.StoreDao;
@@ -47,6 +48,15 @@ public class StoreServiceImpl implements StoreService {
         ensure(permissionsService.canDeleteStores(storeNames), "Cannot delete at least 1 store among stores : %s", Arrays.toString(storeNames));
 
         storeDao.hardDeleteStoresByNames(storeNames);
+    }
+
+    @Override
+    public void attachUserToStores(Long userId, StoreRole storeRole, String... storeNames) {
+        ensure(permissionsService.canRemoveUserFromStores(storeNames), "Cannot remove user %s from stores : %s", userId, Arrays.toString(storeNames));
+
+        for(String storeName : storeNames){
+            storeDao.attachUserToStore(userId, storeName, storeRole);
+        }
     }
 
 }
