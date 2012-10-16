@@ -47,12 +47,21 @@ public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHand
             EXCEPTIONS_HANDLER_RESOLVERS.putIfAbsent(handlerMethodType,
                     new ExceptionHandlerMethodResolver(handlerMethodType));
         }
+        Object handler = null;
         Method resolvedMethod = EXCEPTIONS_HANDLER_RESOLVERS.get(handlerMethodType).resolveMethod(exception);
-        // If method handler is not found in handlerMethodType, falling back to current class
-        // handling exceptions globally
-        resolvedMethod = resolvedMethod != null ? resolvedMethod : EXCEPTIONS_HANDLER_RESOLVERS.get(this.getClass()).resolveMethod(exception);
+        if(resolvedMethod != null){
+            handler = handlerMethod.getBean();
+        } else {
+            // If method handler is not found in handlerMethodType, falling back to current class
+            // handling exceptions globally
+            resolvedMethod = resolvedMethod != null ? resolvedMethod : EXCEPTIONS_HANDLER_RESOLVERS.get(this.getClass()).resolveMethod(exception);
+            if(resolvedMethod != null){
+                handler = this;
+            }
+        }
 
-        return (resolvedMethod != null ? new ServletInvocableHandlerMethod(this, resolvedMethod) : null);
+
+        return (resolvedMethod != null ? new ServletInvocableHandlerMethod(handler, resolvedMethod) : null);
     }
 
     // These @ExceptionHandler methods will be executed instead of the @Controller ones !
