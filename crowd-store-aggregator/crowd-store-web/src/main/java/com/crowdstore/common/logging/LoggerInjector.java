@@ -25,7 +25,7 @@ public class LoggerInjector implements BeanPostProcessor {
             public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
                 // make the field accessible if defined private
                 ReflectionUtils.makeAccessible(field);
-                if (field.getAnnotation(InjectLogger.class) != null && field.getDeclaringClass().isAssignableFrom(Logger.class)) {
+                if (field.getAnnotation(InjectLogger.class) != null && field.getType().isAssignableFrom(Logger.class)) {
                     Logger log = LoggerFactory.getLogger(bean.getClass());
                     field.set(bean, log);
                 }
