@@ -5,5 +5,5 @@ package com.crowdstore.models.security;
  */
 public enum GlobalAuthorization {
     CREATE_USER,
-    CREATE_STORE
+    DELETE_USER, CREATE_STORE
 }

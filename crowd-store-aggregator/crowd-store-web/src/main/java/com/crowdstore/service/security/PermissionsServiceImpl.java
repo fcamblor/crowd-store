@@ -31,9 +31,28 @@ public class PermissionsServiceImpl implements PermissionsService {
     }
 
     @Override
+    public boolean canCreateNewUser() {
+        return appContext.getAuthenticatedUser().hasGlobalAuthorization(GlobalAuthorization.CREATE_USER);
+    }
+
+    @Override
+    public boolean canDeleteUsers() {
+        return appContext.getAuthenticatedUser().hasGlobalAuthorization(GlobalAuthorization.DELETE_USER);
+    }
+
+    @Override
     public boolean canDeleteStores(String... storeNames) {
+        return currentUserHasAuthorizationOnStores(StoreAuthorization.DELETE_STORE, storeNames);
+    }
+
+    @Override
+    public boolean canRemoveUserFromStores(String... storeNames) {
+        return currentUserHasAuthorizationOnStores(StoreAuthorization.REMOVE_USER_FROM_STORE, storeNames);
+    }
+
+    private boolean currentUserHasAuthorizationOnStores(StoreAuthorization storeAuthorization, String... storeNames){
         for(String storeName : storeNames){
-            if(!appContext.getAuthenticatedUser().hasStoreAuthorization(storeName, StoreAuthorization.DELETE_STORE)){
+            if(!appContext.getAuthenticatedUser().hasStoreAuthorization(storeName, storeAuthorization)){
                 return false;
             }
         }
