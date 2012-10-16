@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public interface Codifiable extends Serializable {
     // Generic guava extractor by code
-    public static final Function<? super Codifiable, String> EXTRACT_CODE_FCT =
+    public static final Function<Codifiable, String> EXTRACT_CODE_FCT =
             new Function<Codifiable, String>() {
                 @Override
                 public String apply(@Nullable Codifiable input) {
@@ -21,7 +21,7 @@ public interface Codifiable extends Serializable {
                 }
             };
     // Generic guava filter where code is null
-    public static final Predicate<? super Codifiable> NULL_ID =
+    public static final Predicate<Codifiable> NULL_ID =
             new Predicate<Codifiable>() {
                 @Override
                 public boolean apply(@Nullable Codifiable input) {

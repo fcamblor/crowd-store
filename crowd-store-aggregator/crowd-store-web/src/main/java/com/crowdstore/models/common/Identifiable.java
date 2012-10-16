@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public interface Identifiable extends Serializable {
     // Generic guava extractor by ID
-    public static final Function<? super Identifiable, Long> EXTRACT_ID_FCT =
+    public static final Function<Identifiable, Long> EXTRACT_ID_FCT =
             new Function<Identifiable, Long>() {
                 @Override
                 public Long apply(@Nullable Identifiable input) {
@@ -21,7 +21,7 @@ public interface Identifiable extends Serializable {
                 }
             };
     // Generic guava filter where id is null
-    public static final Predicate<? super Identifiable> NULL_ID =
+    public static final Predicate<Identifiable> NULL_ID =
             new Predicate<Identifiable>() {
                 @Override
                 public boolean apply(@Nullable Identifiable input) {
