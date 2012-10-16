@@ -2,6 +2,7 @@ package com.crowdstore.test.factories;
 
 import com.crowdstore.models.store.FlatStore;
 import com.crowdstore.models.store.StoreIdentity;
+import com.crowdstore.restapi.common.PermissionFaker;
 import com.crowdstore.service.store.StoreService;
 import com.crowdstore.test.factories.common.EntitiesTestFactory;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,17 @@ public class StoreTestFactory extends EntitiesTestFactory {
     @Inject
     StoreService storeService;
 
+    @Inject
+    PermissionFaker permissionFaker;
+
     public FlatStore newPersistedFlatFlow(String storeName) {
-        FlatStore store = new FlatStore(new StoreIdentity(null).setName(storeName));
-        storeService.createStore(store);
+        final FlatStore store = new FlatStore(new StoreIdentity(null).setName(storeName));
+        permissionFaker.executeWithAllRights(new Runnable() {
+            @Override
+            public void run() {
+                storeService.createStore(store);
+            }
+        });
         return store;
     }
 
