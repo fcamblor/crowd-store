@@ -7,6 +7,8 @@ import com.crowdstore.service.user.UserService;
 import com.crowdstore.web.common.annotations.PublicSpace;
 import com.crowdstore.web.common.session.SessionHolder;
 import com.crowdstore.web.common.util.HttpResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +26,8 @@ import java.io.IOException;
 @RequestMapping("/auth")
 public class AuthenticationController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
+
     @Inject
     UserService userService;
 
@@ -40,6 +44,7 @@ public class AuthenticationController {
     @ResponseStatus(value=HttpStatus.FORBIDDEN)
     public void handleAuthenticationError(AuthenticationError authenticationError, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        LOG.info("Authentication error !");
         HttpResponses.sendJSONRedirect("/", request, response);
     }
 }
