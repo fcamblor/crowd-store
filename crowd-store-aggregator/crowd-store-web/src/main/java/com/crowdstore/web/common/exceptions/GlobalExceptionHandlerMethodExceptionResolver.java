@@ -29,10 +29,13 @@ public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHand
 
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandlerMethodExceptionResolver.class);
 
-    private static final ConcurrentMap<Class, ExceptionHandlerMethodResolver> EXCEPTIONS_HANDLER_RESOLVERS = new ConcurrentHashMap<>();
+    /**
+     * Used because ExceptionHandlerMethodResolver instanciation costs performance
+     */
+    private static final ConcurrentMap<Class, ExceptionHandlerMethodResolver> CACHED_EXCEPTIONS_HANDLER_RESOLVERS = new ConcurrentHashMap<>();
 
     static {
-        EXCEPTIONS_HANDLER_RESOLVERS.putIfAbsent(GlobalExceptionHandlerMethodExceptionResolver.class,
+        CACHED_EXCEPTIONS_HANDLER_RESOLVERS.putIfAbsent(GlobalExceptionHandlerMethodExceptionResolver.class,
                 new ExceptionHandlerMethodResolver(GlobalExceptionHandlerMethodExceptionResolver.class));
     }
 
@@ -41,20 +44,20 @@ public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHand
     // which should contain @ExceptionHandler annotated methods
     protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
         Class<?> handlerMethodType = handlerMethod.getBeanType();
-        if(!EXCEPTIONS_HANDLER_RESOLVERS.containsKey(handlerMethodType)){
+        if(!CACHED_EXCEPTIONS_HANDLER_RESOLVERS.containsKey(handlerMethodType)){
             // Surrounding the putIfAbsent() method with a containsKey test because instanciation of ExceptionHandlerMethodResolver
             // is costly
-            EXCEPTIONS_HANDLER_RESOLVERS.putIfAbsent(handlerMethodType,
+            CACHED_EXCEPTIONS_HANDLER_RESOLVERS.putIfAbsent(handlerMethodType,
                     new ExceptionHandlerMethodResolver(handlerMethodType));
         }
         Object handler = null;
-        Method resolvedMethod = EXCEPTIONS_HANDLER_RESOLVERS.get(handlerMethodType).resolveMethod(exception);
+        Method resolvedMethod = CACHED_EXCEPTIONS_HANDLER_RESOLVERS.get(handlerMethodType).resolveMethod(exception);
         if(resolvedMethod != null){
             handler = handlerMethod.getBean();
         } else {
             // If method handler is not found in handlerMethodType, falling back to current class
             // handling exceptions globally
-            resolvedMethod = resolvedMethod != null ? resolvedMethod : EXCEPTIONS_HANDLER_RESOLVERS.get(this.getClass()).resolveMethod(exception);
+            resolvedMethod = resolvedMethod != null ? resolvedMethod : CACHED_EXCEPTIONS_HANDLER_RESOLVERS.get(this.getClass()).resolveMethod(exception);
             if(resolvedMethod != null){
                 handler = this;
             }
