@@ -10,6 +10,12 @@
         VALUES (#{identity.name}, 0)
     </insert>
 
+    <insert id="attachUserToStore" parameterType="map">
+        INSERT INTO user_store(user_id, store_id, role)
+        SELECT #{userId}, s.id, #{role}
+        FROM store s WHERE s.name=#{storeName}
+    </insert>
+
     <select id="getStoreUsers" parameterType="String" resultMap="com.crowdstore.persistence.mappings.users.UserIdentity">
         SELECT U.id as 'id', U.FIRST_NAME as 'first_name', U.LAST_NAME as 'last_name', U.EMAIL as 'email'
         FROM user U
@@ -24,7 +30,6 @@
         <foreach collection="array" item="name" open="(" separator="," close=")">
             #{name}
         </foreach>
-
     </delete>
 
 </mapper>
