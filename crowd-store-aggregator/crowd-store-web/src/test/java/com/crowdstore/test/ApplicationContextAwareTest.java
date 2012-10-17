@@ -9,7 +9,7 @@ import com.crowdstore.test.rules.LoggingDbChanges;
 import org.junit.Before;
 import org.junit.Rule;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.web.server.MockMvc;
 import org.springframework.test.web.server.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
 @ContextConfiguration(
         loader = WebContextLoader.class,
         locations = {"classpath:applicationContext.xml"})
-public abstract class ApplicationContextAwareTest extends AbstractTransactionalJUnit4SpringContextTests {
+public abstract class ApplicationContextAwareTest extends AbstractJUnit4SpringContextTests {
 
     @Inject
     private WebApplicationContext wac;
