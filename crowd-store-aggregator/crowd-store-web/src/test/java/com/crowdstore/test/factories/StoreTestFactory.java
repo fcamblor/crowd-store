@@ -1,5 +1,6 @@
 package com.crowdstore.test.factories;
 
+import com.crowdstore.models.role.StoreRole;
 import com.crowdstore.models.store.FlatStore;
 import com.crowdstore.models.store.StoreIdentity;
 import com.crowdstore.restapi.common.PermissionFaker;
@@ -33,6 +34,15 @@ public class StoreTestFactory extends EntitiesTestFactory {
             }
         });
         return store;
+    }
+
+    public void attachUserToStores(final Long userId, final StoreRole role, final String... attachedStoreNames) {
+        permissionFaker.executeWithAllRights(new Runnable() {
+            @Override
+            public void run() {
+                storeService.attachUserToStores(userId, role, attachedStoreNames);
+            }
+        });
     }
 
     public void cleanPersistedFlatStores(boolean rethrowException, FlatStore... createdFlatStores){
