@@ -309,17 +309,6 @@
                                     <scriptLocations>${project.basedir}/src/main/sql/scripts/</scriptLocations>
                                 </configuration>
                             </execution>
-                            <execution>
-                                <id>run-dbmaintain-test-scripts</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>updateDatabase</goal>
-                                </goals>
-                                <configuration>
-                                    <scriptLocations>${project.basedir}/src/test/sql/scripts/</scriptLocations>
-                                    <executedScriptsTableName>dbmaintain_test_scripts</executedScriptsTableName>
-                                </configuration>
-                            </execution>
                         </executions>
                         <dependencies>
                             <dependency>
