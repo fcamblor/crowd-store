@@ -6,14 +6,18 @@ package com.crowdstore.test;
 
 import com.crowdstore.test.mockcontext.WebContextLoader;
 import com.crowdstore.test.rules.LoggingDbChanges;
+import com.crowdstore.test.rules.ModelsTestFactory;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.rules.RuleChain;
+import org.junit.rules.TestRule;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.web.server.MockMvc;
 import org.springframework.test.web.server.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 /**
@@ -29,8 +33,18 @@ public abstract class ApplicationContextAwareTest extends AbstractJUnit4SpringCo
     private WebApplicationContext wac;
 
     @Inject
+    protected ModelsTestFactory modelsTestFactory;
+
+    @Inject
+    protected LoggingDbChanges loggingDbChanges;
+
     @Rule
-    public LoggingDbChanges loggingDbChanges;
+    public TestRule rulesChain;
+
+    @PostConstruct
+    protected void defineRuleChain(){
+        rulesChain = RuleChain.outerRule(loggingDbChanges).around(modelsTestFactory);
+    }
 
     @Before
     public void setup(){
