@@ -6,8 +6,9 @@
     <property name="LOGS_FOLDER" value="${logs.directory}"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="com.crowdstore.common.logging.SpringTransactionFilter" />
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level %logger{36} - %msg%n)</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %X{transaction} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
