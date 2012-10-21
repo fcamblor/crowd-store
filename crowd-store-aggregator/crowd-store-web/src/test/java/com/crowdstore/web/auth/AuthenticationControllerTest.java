@@ -8,6 +8,7 @@ import com.crowdstore.models.users.FlatUser;
 import com.crowdstore.models.users.UserIdentity;
 import com.crowdstore.restapi.auth.AuthenticationRestService;
 import com.crowdstore.restapi.common.RestSession;
+import com.crowdstore.service.user.AuthenticationError;
 import com.crowdstore.test.ApplicationContextAwareTest;
 import com.crowdstore.test.rules.RequiresRunningEmbeddedTomcat;
 import org.junit.Rule;
@@ -32,7 +33,7 @@ public class AuthenticationControllerTest extends ApplicationContextAwareTest {
     public RequiresRunningEmbeddedTomcat embeddedTomcat = new RequiresRunningEmbeddedTomcat();
 
     @Test
-    public void shouldAuthenticationBeOk(){
+    public void shouldAuthenticationBeOk() throws AuthenticationError {
         final FlatUser WORKING_USER;
         final FlatStore store1, store2;
         MODELS_PREPARATION: {
