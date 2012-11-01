@@ -13,5 +13,9 @@ target/
 *.iml
 
 # application.properties Files #
-/src/main/resources/appconfig/devspecific/application-*.properties
-!/src/main/resources/appconfig/devspecific/application-jenkins.properties
+/crowd-store-aggregator/crowd-store-web/src/main/resources/appconfig/devspecific/application-*.properties
+!/crowd-store-aggregator/crowd-store-web/src/main/resources/appconfig/devspecific/application-jenkins.properties
+
+# yeoman files #
+/crowd-store-aggregator/crowd-store-web/src/main/webapp/components/
+/crowd-store-aggregator/crowd-store-web/src/main/webapp/temp/
