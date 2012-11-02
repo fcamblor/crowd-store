@@ -18,4 +18,5 @@ target/
 
 # yeoman files #
 /crowd-store-aggregator/crowd-store-web/src/main/webapp/components/
+/crowd-store-aggregator/crowd-store-web/src/main/webapp/app/components/
 /crowd-store-aggregator/crowd-store-web/src/main/webapp/temp/
