@@ -1,15 +1,7 @@
-require(["jquery", "underscore", "backbone", "bootstrap"], function($, _, Backbone){
-    window.webapp = {
-      Models: {},
-      Collections: {},
-      Views: {},
-      Routers: {},
-      init: function() {
-        console.log('Hello from Backbone!');
-      }
-    };
+require(["jquery", "underscore", "backbone", "models/application", "bootstrap"], function($, _, Backbone, Application){
 
     $(document).ready(function(){
-      webapp.init();
+        window.app = new Application();
+        window.app.start();
     });
 });
