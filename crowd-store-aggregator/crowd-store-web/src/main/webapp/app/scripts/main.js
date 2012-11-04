@@ -8,9 +8,16 @@ require.config({
         "bootstrap": "vendor/bootstrap/bootstrap"
     },
     shim: {
+        // "default" backbone.js files are not AMD-compatible
+        // => We must not consider it as proper backbone dependency, this is why we add here
+        // shim config which provide window.Backbone as module dependency
         "backbone": {
             deps: ["underscore", "jquery"],
-            export: "Backbone"
+            // Note : This is strange that exports:"Backbone" is not enough
+            // for strange reasons, we have to confirm it with init function
+            // because otherwise, window.Backbone won't be provided as module dependency
+            exports: "Backbone",
+            init: function(){ return this.Backbone; }
         },
         "underscore": {
             deps: [],

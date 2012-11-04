@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "routes/MainRouter"], function(blah, _, MainRouter){
+define(["backbone", "underscore", "routes/MainRouter"], function(Backbone, _, MainRouter){
 
     return Backbone.Model.extend({
         defaults: {
