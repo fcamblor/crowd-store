@@ -41,7 +41,7 @@ require.config({
     }
 });
 
-require(["jquery", "underscore", "backbone", "models/application", "bootstrap"], function($, _, Backbone, Application){
+require(["jquery", "models/application"], function($, Application){
 
     $(document).ready(function(){
         window.app = new Application();
