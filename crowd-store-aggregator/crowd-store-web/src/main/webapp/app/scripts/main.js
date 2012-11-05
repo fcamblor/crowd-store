@@ -59,11 +59,10 @@ require.config({
     }
 });
 
-require(["jquery", "models/application", "hbs!templates/hello"], function($, Application, tmplHello){
+require(["jquery", "models/application"], function($, Application){
 
     $(document).ready(function(){
         window.app = new Application();
         window.app.start();
-        console.log(tmplHello({ who: "world" }));
     });
 });
