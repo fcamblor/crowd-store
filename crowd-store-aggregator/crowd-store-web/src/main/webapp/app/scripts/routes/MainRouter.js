@@ -25,18 +25,9 @@ define(["jquery", "backbone"], function($, Backbone){
             require(["views/"+viewName], function(ViewClass){
                 // Instantiating view..
                 var viewInstance = new ViewClass();
-
-                // ... then calling render() on it and including rendering result
-                // into dynamicSection
-                dynamicSection.html(viewInstance.render());
-
-                // If view has id defined, we sould update its element
-                if(viewInstance.id){
-                    var viewEl = dynamicSection.find("#"+viewInstance.id);
-                    if(viewEl){
-                        viewInstance.setElement(viewEl);
-                    }
-                }
+                viewInstance.setElement(dynamicSection);
+                // ... then calling render() on it
+                viewInstance.render();
             });
         }
     });

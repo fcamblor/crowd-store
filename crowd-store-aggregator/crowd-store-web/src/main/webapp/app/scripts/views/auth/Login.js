@@ -1,12 +1,12 @@
 define(["hbs!templates/auth/login"], function(tmplContent){
     return Backbone.View.extend({
-        id: "loginForm",
         events: {
             "click #authenticateBtn": "authenticate"
         },
 
         render: function(){
-            return tmplContent({});
+            this.$el.html(tmplContent({}));
+            return this;
         },
 
         authenticate: function(){
