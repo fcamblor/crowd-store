@@ -29,6 +29,14 @@ define(["jquery", "backbone"], function($, Backbone){
                 // ... then calling render() on it and including rendering result
                 // into dynamicSection
                 dynamicSection.html(viewInstance.render());
+
+                // If view has id defined, we sould update its element
+                if(viewInstance.id){
+                    var viewEl = dynamicSection.find("#"+viewInstance.id);
+                    if(viewEl){
+                        viewInstance.setElement(viewEl);
+                    }
+                }
             });
         }
     });
