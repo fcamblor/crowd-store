@@ -3,6 +3,8 @@ require.config({
     paths: {
         "components": "../components",
         "backbone": "../components/backbone/backbone",
+        "bbModelBinder": "../components/Backbone.ModelBinder/Backbone.ModelBinder",
+        "bbDeepModel": "../components/backbone-deep-model/src/deep-model",
         "jquery": "../components/jquery/jquery",
         "underscore": "../components/underscore/underscore",
         "bootstrap": "vendor/bootstrap/bootstrap",
@@ -26,6 +28,14 @@ require.config({
         "underscore": {
             deps: [],
             exports: "_"
+        },
+        "bbModelBinder": {
+            deps: [],
+            exports: "Backbone.ModelBinder"
+        },
+        "bbDeepModel": {
+            deps: [],
+            exports: "Backbone.DeepModel"
         },
         // Most of twitter boostrap components need jquery loaded
         "components/bootstrap/js/bootstrap-affix": ["jquery"],
@@ -52,7 +62,7 @@ require.config({
         }
     },
     // hbs is a requirejs plugin, so we should load it as soon as possible...
-    deps: ["hbs"],
+    deps: ["hbs", "backbone", "bbModelBinder", "bbDeepModel"],
     // hbs particular configuration properties
     hbs: {
         disableI18n: true // Support for i18n is useless for the moment...
