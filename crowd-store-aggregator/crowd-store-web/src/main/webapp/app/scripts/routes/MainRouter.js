@@ -15,6 +15,8 @@ define(["jquery", "backbone"], function($, Backbone){
             "auth/login": "auth/Login"
         },
 
+        currentView: null,
+
         invokeView: function(url) {
             var viewName = this.viewByUrl[url];
             if(!viewName){
@@ -23,11 +25,16 @@ define(["jquery", "backbone"], function($, Backbone){
 
             // Requiring view and invoking render() on it
             require(["views/"+viewName], function(ViewClass){
+                // Fixing memory leak, by cleaning previous view (and attached event on it)
+                if(this.currentView){
+                    this.currentView.remove();
+                }
+
                 // Instantiating view..
-                var viewInstance = new ViewClass();
-                viewInstance.setElement(dynamicSection);
+                this.currentView = new ViewClass();
+                this.currentView.setElement(dynamicSection);
                 // ... then calling render() on it
-                viewInstance.render();
+                this.currentView.render();
             });
         }
     });
