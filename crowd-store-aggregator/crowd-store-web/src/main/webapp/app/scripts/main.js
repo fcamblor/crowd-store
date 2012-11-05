@@ -5,7 +5,11 @@ require.config({
         "backbone": "../components/backbone/backbone",
         "jquery": "../components/jquery/jquery",
         "underscore": "../components/underscore/underscore",
-        "bootstrap": "vendor/bootstrap/bootstrap"
+        "bootstrap": "vendor/bootstrap/bootstrap",
+        "json2": "../components/require-handlebars-plugin/hbs/json2",
+        "handlebars": "../components/handlebars.js/handlebars-1.0.0-rc.1",
+        "i18nprecompile": "../components/require-handlebars-plugin/hbs/i18nprecompile",
+        "hbs": "../components/require-handlebars-plugin/hbs"
     },
     shim: {
         // "default" backbone.js files are not AMD-compatible
@@ -37,14 +41,29 @@ require.config({
         "components/bootstrap/js/bootstrap-scrollspy": ["jquery"],
         "components/bootstrap/js/bootstrap-tab": ["jquery"],
         "components/bootstrap/js/bootstrap-transition": ["jquery"],
-        "components/bootstrap/js/bootstrap-typeahead": ["jquery"]
+        "components/bootstrap/js/bootstrap-typeahead": ["jquery"],
+        "json2": {
+            deps: [],
+            exports: "JSON"
+        },
+        "handlebars": {
+            deps: [],
+            exports: "Handlebars"
+        }
+    },
+    // hbs is a requirejs plugin, so we should load it as soon as possible...
+    deps: ["hbs"],
+    // hbs particular configuration properties
+    hbs: {
+        disableI18n: true // Support for i18n is useless for the moment...
     }
 });
 
-require(["jquery", "models/application"], function($, Application){
+require(["jquery", "models/application", "hbs!templates/hello"], function($, Application, tmplHello){
 
     $(document).ready(function(){
         window.app = new Application();
         window.app.start();
+        console.log(tmplHello({ who: "world" }));
     });
 });
