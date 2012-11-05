@@ -18,7 +18,7 @@ define(["backbone", "underscore", "routes/MainRouter"], function(Backbone, _, Ma
             // if current url fragment is not resolved to a view
             var currentUrlMatchesAView = Backbone.history.start();
             if(!currentUrlMatchesAView){
-                this.routeTo("!/foo/testing");
+                this.routeTo("!/auth/login");
             }
         },
 

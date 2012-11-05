@@ -1,12 +1,18 @@
-define(["backbone"], function(Backbone){
+define(["jquery", "backbone"], function($, Backbone){
+
+    var dynamicSection = $("#container");
 
     return Backbone.Router.extend({
         routes: {
             "!/*url": "invokeView"
         },
 
+        // Provide a mapping between :
+        // Key : an url
+        // Value : A require.js path relative to views/ directory, representing
+        //   view which will be loaded when corresponding url is met
         viewByUrl: {
-            "foo/testing": "TestingView"
+            "auth/login": "auth/Login"
         },
 
         invokeView: function(url) {
@@ -17,8 +23,12 @@ define(["backbone"], function(Backbone){
 
             // Requiring view and invoking render() on it
             require(["views/"+viewName], function(ViewClass){
+                // Instantiating view..
                 var viewInstance = new ViewClass();
-                viewInstance.render();
+
+                // ... then calling render() on it and including rendering result
+                // into dynamicSection
+                dynamicSection.html(viewInstance.render());
             });
         }
     });
