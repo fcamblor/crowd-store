@@ -1,12 +1,14 @@
-define(["backbone", "underscore", "routes/MainRouter"], function(Backbone, _, MainRouter){
+define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function(Backbone, _, MainRouter, Ajax){
 
     return Backbone.Model.extend({
         defaults: {
             router: null,
-            currentUser: {}
+            currentUser: {},
+            crossDomainRootUrl: (window.location.port==="3501")?"http://localhost:8080":null
         },
 
         initialize: function(attributes, options){
+            Ajax.initJQueryAjax(this);
             Backbone.Model.prototype.initialize.call(this, attributes, options);
 
             this.bind("change:currentUser", this.currentUserUpdated, this);
@@ -49,7 +51,8 @@ define(["backbone", "underscore", "routes/MainRouter"], function(Backbone, _, Ma
         },
 
         // Aliases
-        currentUser: function(){ return this.get("currentUser"); }
+        currentUser: function(){ return this.get("currentUser"); },
+        crossDomainRootUrl: function(){ return this.get("crossDomainRootUrl"); }
     });
 });
 
