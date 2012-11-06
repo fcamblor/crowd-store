@@ -32,9 +32,17 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
+    <filter>
+        <filter-name>AllowCrossDomainFilter</filter-name>
+        <filter-class>com.crowdstore.web.common.interceptors.AllowCrossDomainFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>charsetFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AllowCrossDomainFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -46,6 +54,10 @@
             <param-value>
                 classpath:app-servlet.xml
             </param-value>
+        </init-param>
+        <init-param>
+            <param-name>dispatchOptionsRequest</param-name>
+            <param-value>true</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
