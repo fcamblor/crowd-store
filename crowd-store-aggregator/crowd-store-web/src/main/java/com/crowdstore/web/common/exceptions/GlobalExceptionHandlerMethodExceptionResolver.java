@@ -43,6 +43,10 @@ public class GlobalExceptionHandlerMethodExceptionResolver extends ExceptionHand
     // Instead of looking at handlerMethod.bean instance, looking at current exception resolver instance
     // which should contain @ExceptionHandler annotated methods
     protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
+        if(handlerMethod == null){
+            return null;
+        }
+
         Class<?> handlerMethodType = handlerMethod.getBeanType();
         if(!CACHED_EXCEPTIONS_HANDLER_RESOLVERS.containsKey(handlerMethodType)){
             // Surrounding the putIfAbsent() method with a containsKey test because instanciation of ExceptionHandlerMethodResolver
