@@ -13,4 +13,6 @@ public interface PermissionsService {
     boolean canBrowseStoreUsers(String storeName);
     boolean canDeleteStores(String... storeNames);
     boolean canRemoveUserFromStores(String... storeNames);
+
+    boolean canBrowseStoreAvailableProducts(String storeToken);
 }

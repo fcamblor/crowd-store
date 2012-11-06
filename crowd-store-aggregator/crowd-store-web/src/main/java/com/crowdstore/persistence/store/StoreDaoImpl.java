@@ -1,5 +1,6 @@
 package com.crowdstore.persistence.store;
 
+import com.crowdstore.models.products.AvailableProduct;
 import com.crowdstore.models.role.StoreRole;
 import com.crowdstore.models.store.FlatStore;
 import com.crowdstore.models.users.UserIdentity;
@@ -38,5 +39,10 @@ public class StoreDaoImpl extends SqlSessionDaoSupport implements StoreDao {
         params.put("storeName", storeName);
         params.put("role", storeRole.name());
         DaoSupport.insert(this, "attachUserToStore", params);
+    }
+
+    @Override
+    public List<AvailableProduct> getStoreAvailableProducts(String storeToken) {
+        return DaoSupport.selectList(this, "getStoreAvailableProducts", storeToken);
     }
 }

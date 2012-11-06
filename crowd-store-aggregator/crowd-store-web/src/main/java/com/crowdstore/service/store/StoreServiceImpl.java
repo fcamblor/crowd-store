@@ -1,6 +1,7 @@
 package com.crowdstore.service.store;
 
 import com.crowdstore.common.annotations.InjectLogger;
+import com.crowdstore.models.products.AvailableProduct;
 import com.crowdstore.models.role.StoreRole;
 import com.crowdstore.models.store.FlatStore;
 import com.crowdstore.models.users.UserIdentity;
@@ -57,6 +58,13 @@ public class StoreServiceImpl implements StoreService {
         for(String storeName : storeNames){
             storeDao.attachUserToStore(userId, storeName, storeRole);
         }
+    }
+
+    @Override
+    public List<AvailableProduct> getStoreAvailableProducts(String storeToken) {
+      //  ensure(permissionsService.canBrowseStoreAvailableProducts(storeToken), "Cannot browse store [%s]'s available products", storeToken);
+
+        return storeDao.getStoreAvailableProducts(storeToken);
     }
 
 }

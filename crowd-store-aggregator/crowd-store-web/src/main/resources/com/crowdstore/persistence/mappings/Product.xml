@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crowdstore.persistence.mappings.product">
+
+    <resultMap id="AvailableProduct" type="com.crowdstore.models.products.AvailableProduct"
+               extends="com.crowdstore.persistence.mappings.commons.Identifiable">
+        <association property="product" resultMap="Product" columnPrefix="product." />
+        <association property="unitSellingPrice" resultMap="Price" columnPrefix="unitSellingPrice." />
+    </resultMap>
+
+    <resultMap id="Product" type="com.crowdstore.models.products.Product"
+               extends="com.crowdstore.persistence.mappings.commons.Identifiable">
+        <result property="displayName" column="displayName" />
+        <result property="pubToken" column="pubToken" />
+        <result property="pictureUrl" column="pictureUrl" />
+        <result property="barcode" column="barcode" />
+
+        <collection property="categories"
+                    resultMap="com.crowdstore.persistence.mappings.products.categories.ProductCategoryIdentity"
+                    columnPrefix="categories." />
+    </resultMap>
+</mapper>

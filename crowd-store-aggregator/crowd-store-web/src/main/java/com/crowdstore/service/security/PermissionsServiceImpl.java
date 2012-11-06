@@ -50,6 +50,11 @@ public class PermissionsServiceImpl implements PermissionsService {
         return currentUserHasAuthorizationOnStores(StoreAuthorization.REMOVE_USER_FROM_STORE, storeNames);
     }
 
+    @Override
+    public boolean canBrowseStoreAvailableProducts(String storeName) {
+        return currentUserBelongToStore(storeName);
+    }
+
     private boolean currentUserHasAuthorizationOnStores(StoreAuthorization storeAuthorization, String... storeNames){
         for(String storeName : storeNames){
             if(!appContext.getAuthenticatedUser().hasStoreAuthorization(storeName, storeAuthorization)){
