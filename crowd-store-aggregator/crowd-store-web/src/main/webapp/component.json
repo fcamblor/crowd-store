@@ -11,6 +11,7 @@
     "jquery-ui": "1.9.0",
     "requirejs": "2.1.1",
     "underscore": "1.4.2",
+    "underscore.string": "2.3.0",
     "handlebars": "1.0.0-rc.1",
     "require-handlebars-plugin": "git://github.com/SlexAxton/require-handlebars-plugin.git#0.4.0"
   }

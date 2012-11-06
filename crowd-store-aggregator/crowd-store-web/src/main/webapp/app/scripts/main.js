@@ -7,6 +7,7 @@ require.config({
         "bbDeepModel": "../components/backbone-deep-model/src/deep-model",
         "jquery": "../components/jquery/jquery",
         "underscore": "../components/underscore/underscore",
+        "underscore.string": "../components/underscore.string/lib/underscore.string",
         "bootstrap": "vendor/bootstrap/bootstrap",
         "json2": "../components/require-handlebars-plugin/hbs/json2",
         "handlebars": "../components/handlebars.js/handlebars-1.0.0-rc.1",
