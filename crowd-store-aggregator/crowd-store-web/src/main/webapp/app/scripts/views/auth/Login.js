@@ -22,7 +22,7 @@ define(["hbs!templates/auth/login", "backbone"], function(tmplContent, Backbone)
         },
 
         authenticate: function(){
-            alert("Submit action detected with following data : "+JSON.stringify(this.model.toJSON()));
+            window.app.login(this.model.toJSON().credentials);
         }
     });
 });

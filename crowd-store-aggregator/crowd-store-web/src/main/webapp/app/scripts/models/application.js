@@ -25,7 +25,21 @@ define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function
         },
 
         currentUserUpdated: function(){
+            console.log("User updated !");
+        },
 
+        login: function(credentials){
+            var $self = this;
+            $.when($.ajax({
+                    "url": "/auth/authenticate",
+                    "type": "POST",
+                    "contentType": "application/json",
+                    "data": JSON.stringify(credentials),
+                    "dataType": "json"
+                })
+            ).then(function(authenticatedUser){
+                $self.set({ currentUser: authenticatedUser });
+            });
         },
 
         /**
