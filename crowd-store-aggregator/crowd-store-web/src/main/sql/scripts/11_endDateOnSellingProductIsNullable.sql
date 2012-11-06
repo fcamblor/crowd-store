@@ -1,0 +1,1 @@
+ALTER TABLE selling_product MODIFY `end_date` datetime NULL;
