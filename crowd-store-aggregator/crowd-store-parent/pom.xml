@@ -259,6 +259,10 @@
                                 <name>logback.configurationFile</name>
                                 <value>${project.basedir}/src/test/resources/logback-dev.xml</value>
                             </systemProperty>
+                            <systemProperty>
+                                <name>env</name>
+                                <value>dev</value>
+                            </systemProperty>
                         </systemProperties>
                     </configuration>
                     <executions>
