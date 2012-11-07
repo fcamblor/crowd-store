@@ -19,6 +19,10 @@ INSERT IGNORE INTO `user_store` (user_id, store_id, role)
 SELECT u.id, s.id, 'CUSTOMER'
 FROM user u, store s
 WHERE u.email='t@t.fr' and s.name='4sh store';
+INSERT IGNORE INTO `user_store` (user_id, store_id, role)
+SELECT u.id, s.id, 'ADMIN'
+FROM user u, store s
+WHERE u.email='t@t.fr' and s.name='4sh soccer5';
 
 
 INSERT IGNORE INTO product_category (name) VALUES ('Gazeux');
