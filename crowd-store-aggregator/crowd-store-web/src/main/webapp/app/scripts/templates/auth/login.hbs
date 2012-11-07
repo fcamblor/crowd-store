@@ -7,21 +7,12 @@
 <form id="loginForm">
     <fieldset>
         <legend>Connexion</legend>
-        <div class="control-group">
-            <label class="control-label" for="login">Email</label>
-            <div class="controls">
-                <input type="email" id="login" name="login" placeholder="Email..." />
-                <span class="help-inline"></span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="hashedPassword">Mot de passe</label>
-            <div class="controls">
-                <input type="password" id="password" name="password" />
-                <input type="hidden" id="hashedPassword" name="hashedPassword" />
-                <span class="help-inline"></span>
-            </div>
-        </div>
+        {{#html-input "" id="login" name="login" type="email" label="Email" placeholder="Email..." }}
+        {{/html-input}}
+        {{#html-field "" id="login" label="Mot de passe" }}
+            <input type="password" id="password" name="password" />
+            <input type="hidden" id="hashedPassword" name="hashedPassword" />
+        {{/html-field}}
     </fieldset>
     <button id="authenticateBtn" type="button" class="btn">S'authentifier</button>
 </form>
