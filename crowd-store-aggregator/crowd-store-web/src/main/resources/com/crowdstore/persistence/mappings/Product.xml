@@ -4,6 +4,10 @@
 
 <mapper namespace="com.crowdstore.persistence.mappings.product">
 
+    <resultMap id="Price" type="com.crowdstore.models.products.Price">
+        <result property="amount" column="amount" />
+    </resultMap>
+
     <resultMap id="AvailableProduct" type="com.crowdstore.models.products.AvailableProduct"
                extends="com.crowdstore.persistence.mappings.commons.Identifiable">
         <association property="product" resultMap="Product" columnPrefix="product." />
