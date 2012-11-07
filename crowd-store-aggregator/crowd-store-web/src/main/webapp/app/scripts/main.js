@@ -63,7 +63,7 @@ require.config({
         }
     },
     // hbs is a requirejs plugin, so we should load it as soon as possible...
-    deps: ["hbs", "backbone", "bbModelBinder", "bbDeepModel"],
+    deps: ["hbs", "backbone", "bbModelBinder", "bbDeepModel", "jquery", "jquery-plugins/spring-validationerrors"],
     // hbs particular configuration properties
     hbs: {
         disableI18n: true // Support for i18n is useless for the moment...
