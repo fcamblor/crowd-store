@@ -7,10 +7,20 @@
 <form id="loginForm">
     <fieldset>
         <legend>Connexion</legend>
-        <label>Email</label>
-        <input type="email" name="credentials.login" placeholder="Email..." />
-        <label>Mot de passe</label>
-        <input type="password" name="credentials.hashedPassword" />
+        <div class="control-group">
+            <label class="control-label" for="login">Email</label>
+            <div class="controls">
+                <input type="email" id="login" name="credentials.login" placeholder="Email..." />
+                <span class="help-inline"></span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Mot de passe</label>
+            <div class="controls">
+                <input type="password" id="password" name="credentials.hashedPassword" />
+                <span class="help-inline"></span>
+            </div>
+        </div>
     </fieldset>
     <button id="authenticateBtn" type="button" class="btn">S'authentifier</button>
 </form>
