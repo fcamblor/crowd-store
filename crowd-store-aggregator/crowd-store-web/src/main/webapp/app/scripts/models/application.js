@@ -29,6 +29,8 @@ define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function
         },
 
         login: function(credentials){
+            var promise = $.Deferred();
+
             var $self = this;
             $.when($.ajax({
                     "url": "/auth/authenticate",
@@ -37,9 +39,14 @@ define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function
                     "data": JSON.stringify(credentials),
                     "dataType": "json"
                 })
-            ).then(function(authenticatedUser){
+            ).done(function(authenticatedUser){
                 $self.set({ currentUser: authenticatedUser });
+                promise.resolve(authenticatedUser);
+            }).fail(function(){
+                promise.reject();
             });
+
+            return promise;
         },
 
         /**

@@ -36,6 +36,8 @@ define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512"], 
         },
 
         authenticate: function(){
+            var $self = this;
+
             // Resetting potential spring errors
             this.$el.cleanSpringErrors(true);
 
@@ -45,7 +47,10 @@ define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512"], 
             // (only used for user inputs, it is automatically converted into hashedPassword,
             // see converter defined above)
             delete credentials.password;
-            window.app.login(credentials);
+            $.when(window.app.login(credentials)).fail(function(){
+                // TODO: Beautify this :-)
+                alert("Authentication error !");
+            });
         }
     });
 });
