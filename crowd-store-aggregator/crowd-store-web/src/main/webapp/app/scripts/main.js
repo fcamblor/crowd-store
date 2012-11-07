@@ -12,7 +12,8 @@ require.config({
         "json2": "../components/require-handlebars-plugin/hbs/json2",
         "handlebars": "../components/handlebars.js/handlebars-1.0.0-rc.1",
         "i18nprecompile": "../components/require-handlebars-plugin/hbs/i18nprecompile",
-        "hbs": "../components/require-handlebars-plugin/hbs"
+        "hbs": "../components/require-handlebars-plugin/hbs",
+        "crypto-sha512": "../components/crypto-sha512/index"
     },
     shim: {
         // "default" backbone.js files are not AMD-compatible
@@ -60,6 +61,10 @@ require.config({
         "handlebars": {
             deps: [],
             exports: "Handlebars"
+        },
+        "crypto-sha512": {
+            deps: [],
+            exports: "CryptoJS"
         }
     },
     // hbs is a requirejs plugin, so we should load it as soon as possible...

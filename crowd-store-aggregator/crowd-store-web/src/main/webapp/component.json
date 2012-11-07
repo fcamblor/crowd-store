@@ -13,6 +13,7 @@
     "underscore": "1.4.2",
     "underscore.string": "2.3.0",
     "handlebars": "1.0.0-rc.1",
-    "require-handlebars-plugin": "git://github.com/SlexAxton/require-handlebars-plugin.git#0.4.0"
+    "require-handlebars-plugin": "git://github.com/SlexAxton/require-handlebars-plugin.git#0.4.0",
+    "crypto-sha512": "http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/sha512.js"
   }
 }
