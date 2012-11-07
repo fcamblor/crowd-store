@@ -1,6 +1,6 @@
 define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function(Backbone, _, MainRouter, Ajax){
 
-    return Backbone.Model.extend({
+    var ApplicationClass = Backbone.Model.extend({
         defaults: {
             router: null,
             currentUser: {},
@@ -75,5 +75,6 @@ define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function
         currentUser: function(){ return this.get("currentUser"); },
         crossDomainRootUrl: function(){ return this.get("crossDomainRootUrl"); }
     });
+    return new ApplicationClass();
 });
 

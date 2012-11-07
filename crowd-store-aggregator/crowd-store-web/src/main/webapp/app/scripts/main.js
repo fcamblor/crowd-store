@@ -75,10 +75,9 @@ require.config({
     }
 });
 
-require(["jquery", "models/application"], function($, Application){
+require(["jquery", "models/application"], function($, app){
 
     $(document).ready(function(){
-        window.app = new Application();
-        window.app.start();
+        app.start();
     });
 });
