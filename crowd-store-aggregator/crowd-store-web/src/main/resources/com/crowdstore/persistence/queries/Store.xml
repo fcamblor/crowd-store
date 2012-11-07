@@ -34,14 +34,16 @@
 
     <select id="getStoreAvailableProducts" parameterType="String"
             resultMap="com.crowdstore.persistence.mappings.product.AvailableProduct">
-        SELECT P.id as 'product.id',
-        P.name as 'product.displayName',
-        P.pictureUrl as 'product.pictureUrl',
-        P.pubToken as 'product.pubToken',
-        P.barcode as 'product.barcode',
-        PC.id as 'product.categories.id',
-        PC.name as 'product.categories.name',
-        SP.price as 'unitSellingPrice.amount'
+        SELECT
+            SP.id as 'id',
+            P.id as 'product.id',
+            P.name as 'product.displayName',
+            P.pictureUrl as 'product.pictureUrl',
+            P.pubToken as 'product.pubToken',
+            P.barcode as 'product.barcode',
+            PC.id as 'product.categories.id',
+            PC.name as 'product.categories.name',
+            SP.price as 'unitSellingPrice.amount'
         FROM selling_product SP
         INNER JOIN store S ON SP.store_id = S.id
         INNER JOIN product P ON SP.product_id = P.id

@@ -6,6 +6,7 @@
 
     <resultMap id="ProductCategoryIdentity" type="com.crowdstore.models.products.ProductCategoryIdentity"
                extends="com.crowdstore.persistence.mappings.commons.Identifiable">
+        <result property="name" column="name" />
     </resultMap>
 
 </mapper>
