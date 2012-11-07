@@ -1,4 +1,4 @@
-define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512"], function(tmplContent, Backbone, _, CryptoJS){
+define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512", "models/application"], function(tmplContent, Backbone, _, CryptoJS, app){
     return Backbone.View.extend({
         events: {
             "click #authenticateBtn": "authenticate"
@@ -26,7 +26,7 @@ define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512"], 
                     if(direction === "ModelToView"){
                         return value;
                     } else {
-                        model.set({ hashedPassword: CryptoJS.SHA512(value).toString() });
+                        model.set({ hashedPassword: value === ""?"":CryptoJS.SHA512(value).toString() });
                         return value;
                     }
                 }}
@@ -47,7 +47,7 @@ define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512"], 
             // (only used for user inputs, it is automatically converted into hashedPassword,
             // see converter defined above)
             delete credentials.password;
-            $.when(window.app.login(credentials)).fail(function(){
+            $.when(app.login(credentials)).fail(function(){
                 // TODO: Beautify this :-)
                 alert("Authentication error !");
             });
