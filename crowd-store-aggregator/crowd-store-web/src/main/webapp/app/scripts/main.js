@@ -73,16 +73,24 @@ require.config({
         }
     },
     // hbs is a requirejs plugin, so we should load it as soon as possible...
-    deps: ["hbs", "helpers/handlebars-helpers", "backbone", "bbModelBinder", "bbDeepModel", "jquery", "jquery-plugins/spring-validationerrors"],
+    deps: [
+        "hbs"
+    ],
     // hbs particular configuration properties
     hbs: {
         disableI18n: true // Support for i18n is useless for the moment...
     }
 });
 
-require(["jquery", "models/application"], function($, app){
+require([
+    "jquery", "models/application", "views/ApplicationView",
+    "helpers/handlebars-helpers", "backbone", "bbModelBinder", "bbCollectionBinder",
+    "bbDeepModel", "jquery", "jquery-plugins/spring-validationerrors",
+    "models/application", "views/ApplicationView"
+], function($, app, appView){
 
     $(document).ready(function(){
         app.start();
+        appView.start();
     });
 });
