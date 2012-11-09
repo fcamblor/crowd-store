@@ -1,6 +1,6 @@
 define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function(Backbone, _, MainRouter, Ajax){
 
-    var ApplicationClass = Backbone.Model.extend({
+    var ApplicationClass = Backbone.DeepModel.extend({
         defaults: {
             router: null,
             currentUser: {},
@@ -16,6 +16,7 @@ define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function
 
         start: function(){
             this.set({ router: new MainRouter() });
+
             // Initializing Backbone history, and eventually routing on homepage
             // if current url fragment is not resolved to a view
             var currentUrlMatchesAView = Backbone.history.start();
