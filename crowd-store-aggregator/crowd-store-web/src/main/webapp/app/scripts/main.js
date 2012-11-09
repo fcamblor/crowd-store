@@ -4,6 +4,7 @@ require.config({
         "components": "../components",
         "backbone": "../components/backbone/backbone",
         "bbModelBinder": "../components/Backbone.ModelBinder/Backbone.ModelBinder",
+        "bbCollectionBinder": "../components/Backbone.ModelBinder/Backbone.CollectionBinder",
         "bbDeepModel": "../components/backbone-deep-model/src/deep-model",
         "jquery": "../components/jquery/jquery",
         "underscore": "../components/underscore/underscore",
@@ -32,8 +33,12 @@ require.config({
             exports: "_"
         },
         "bbModelBinder": {
-            deps: [],
+            deps: ["backbone"],
             exports: "Backbone.ModelBinder"
+        },
+        "bbCollectionBinder": {
+            deps: ["bbModelBinder"],
+            exports: "Backbone.CollectionBinder"
         },
         "bbDeepModel": {
             deps: [],
