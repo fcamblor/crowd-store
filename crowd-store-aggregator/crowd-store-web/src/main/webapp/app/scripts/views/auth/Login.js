@@ -1,4 +1,4 @@
-define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512", "models/Application-renamed"],
+define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512", "models/Application"],
     function(tmplContent, Backbone, _, CryptoJS, app){
 
     return Backbone.View.extend({

@@ -1,4 +1,4 @@
-define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "backbone", "underscore", "models/Application-renamed"],
+define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "backbone", "underscore", "models/Application"],
     function(tmplNavMenus, tmplNavSubmenus, Backbone, _, app){
 
     var ApplicationViewClass = Backbone.View.extend({
