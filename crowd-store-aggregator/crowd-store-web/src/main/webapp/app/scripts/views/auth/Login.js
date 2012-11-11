@@ -1,4 +1,6 @@
-define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512", "models/application"], function(tmplContent, Backbone, _, CryptoJS, app){
+define(["hbs!templates/auth/login", "backbone", "underscore", "crypto-sha512", "models/Application-renamed"],
+    function(tmplContent, Backbone, _, CryptoJS, app){
+
     return Backbone.View.extend({
         events: {
             "click #authenticateBtn": "authenticate"
