@@ -11,7 +11,7 @@ define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function
             Ajax.initJQueryAjax(this);
             Backbone.Model.prototype.initialize.call(this, attributes, options);
 
-            this.bind("change:currentUser", this.currentUserUpdated, this);
+            this.bind("change:currentUser.*", this.currentUserUpdated, this);
         },
 
         start: function(){
@@ -25,8 +25,8 @@ define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function
             }
         },
 
-        currentUserUpdated: function(){
-            console.log("User updated !");
+        currentUserUpdated: function(app, user){
+            console.log("User updated : "+JSON.stringify(user)+" !");
         },
 
         login: function(credentials){
