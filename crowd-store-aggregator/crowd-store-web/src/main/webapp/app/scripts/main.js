@@ -85,7 +85,7 @@ require.config({
 require([
     "jquery", "models/Application", "views/ApplicationView",
     "helpers/handlebars-helpers", "backbone", "bbModelBinder", "bbCollectionBinder",
-    "bbDeepModel", "jquery", "jquery-plugins/spring-validationerrors"
+    "bbDeepModel", "jquery", "jquery-plugins/spring-validationerrors", "bootstrap"
 ], function($, app, appView){
 
     $(document).ready(function(){
