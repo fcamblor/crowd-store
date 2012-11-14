@@ -1,5 +1,5 @@
 define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "backbone", "underscore", "models/Application"],
-    function(tmplNavMenus, tmplNavSubmenus, Backbone, _, app){
+    function(tmplNavMenus, tmplNavSubmenus, Backbone, _, App){
 
     var ApplicationViewClass = Backbone.View.extend({
         el: "body",
@@ -10,7 +10,18 @@ define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "back
         initialize: function(){
             this._menusModelBinder = null;
             this._modelBinders = {};
+
+            // Should be a projection of navigation menus looking like this :
+            // [
+            //    {
+            //      label: "root menu label",
+            //      [href: "an optional link",]
+            //      [submenu: Backbone.Collection() of { label: "submenu label", href: "an url" }]
+            //    }
+            // ]
             this.menus = new Backbone.Collection([]);
+
+            App.bind("change:currentUser.*", this.updateUserMenus, this);
         },
 
         // Should never be called...
@@ -21,37 +32,70 @@ define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "back
             });
         },
 
+        _registerModelBinder: function(id, modelBinder){
+            this._modelBinders[id] = modelBinder;
+        },
+
+        _unregisterModelBinder: function(id){
+            this._modelBinders[id].unbind();
+            delete this._modelBinders[id];
+        },
+
+        updateUserMenus: function(app, currentUser){
+            if(currentUser === null){
+                this.menus.reset();
+            } else {
+                this.menus.add({
+                    label: "Stores",
+                    submenus: new Backbone.Collection([])
+                });
+                var storesSubmenus = this.menus.at(this.menus.length-1).get("submenus");
+                _.each(_.keys(currentUser.storesAuthorizations), function(storeName){
+                    storesSubmenus.add({ label: storeName, href: "#blah/"+storeName });
+                });
+
+                this.menus.add({
+                    label: "Debts",
+                    href: "#debts"
+                });
+                this.menus.add({
+                    label: "Preferences",
+                    submenus: new Backbone.Collection([])
+                });
+            }
+        },
+
         start: function(){
             var $self = this;
+
+            // Declaring root menus collection model binder
             this._menusModelBinder = new Backbone.CollectionBinder(
                 new Backbone.CollectionBinder.ElManagerFactory(tmplNavMenus({}), {
                     href: { selector: "[data-name=hyperlink]", elAttribute:"href" },
                     label: { selector: "[data-name=label]" }
                 })
             );
-            this._modelBinders[this.menus.cid] = this._menusModelBinder;
-
-            this._menusModelBinder.bind(this.menus, this.$el.find("#main-menu-left"));
             this._menusModelBinder.on("elCreated", function(model, el){
-                var submenuModelBinder = new Backbone.CollectionBinder(
-                    new Backbone.CollectionBinder.ElManagerFactory(tmplNavSubmenus({}), {
-                        href: { selector: "[data-name=submenu-label]", elAttribute:"href" },
-                        label: { selector: "[data-name=submenu-label]" }
-                    })
-                );
-                $self._modelBinders[model.cid] = submenuModelBinder;
-                submenuModelBinder.bind(model.get("submenus"), el.find(".dropdown-menu"));
+                // On submenu creation, we should declare an additional
+                // modelbinder (for submenus)
+                var modelSubmenus = model.get("submenus");
+                if(modelSubmenus){
+                    var submenuModelBinder = new Backbone.CollectionBinder(
+                        new Backbone.CollectionBinder.ElManagerFactory(tmplNavSubmenus({}), {
+                            href: { selector: "[data-name=submenu-label]", elAttribute:"href" },
+                            label: { selector: "[data-name=submenu-label]" }
+                        })
+                    );
+                    $self._registerModelBinder(model.cid, submenuModelBinder);
+                    submenuModelBinder.bind(modelSubmenus, el.find(".dropdown-menu"));
+                }
             });
             this._menusModelBinder.on("elRemoved", function(model, el){
-                // TODO : REMOVE $self._modelBinders[model.cid] !
+                $self._unregisterModelBinder(model.cid);
             });
-
-            var menu1 = { label: "4SH canettes", submenus: new Backbone.Collection([]) };
-            this.menus.add(menu1);
-            menu1.submenus.add({ label: "Sous libellé 1", href: "#foo" });
-
-            var menu2 = { label: "4SH Soccer5", href: "#bar", submenus: new Backbone.Collection([]) };
-            this.menus.add(menu2);
+            this._menusModelBinder.bind(this.menus, this.$el.find("#main-menu-left"));
+            // Binding root menus to this.menus
+            this._registerModelBinder(this.menus.cid, this._menusModelBinder);
         }
     });
 
