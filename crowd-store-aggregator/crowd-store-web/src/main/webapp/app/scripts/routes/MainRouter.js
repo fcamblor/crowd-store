@@ -12,7 +12,8 @@ define(["jquery", "backbone"], function($, Backbone){
         // Value : A require.js path relative to views/ directory, representing
         //   view which will be loaded when corresponding url is met
         viewByUrl: {
-            "auth/login": "auth/Login"
+            "auth/login": "auth/Login",
+            "stores/:storeToken/availableProducts": "stores/StoreAvailableProducts"
         },
 
         // Will be calculated in initialize() depending on viewByUrl field

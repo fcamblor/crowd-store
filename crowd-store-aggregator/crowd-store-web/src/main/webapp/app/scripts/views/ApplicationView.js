@@ -42,7 +42,7 @@ define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "back
         },
 
         updateUserMenus: function(app, currentUser){
-            if(currentUser === null){
+            if(!currentUser){
                 this.menus.reset();
             } else {
                 this.menus.add({
@@ -51,7 +51,7 @@ define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "back
                 });
                 var storesSubmenus = this.menus.at(this.menus.length-1).get("submenus");
                 _.each(_.keys(currentUser.storesAuthorizations), function(storeName){
-                    storesSubmenus.add({ label: storeName, href: "#blah/"+storeName });
+                    storesSubmenus.add({ label: storeName, href: "#!/stores/"+storeName+"/availableProducts" });
                 });
 
                 this.menus.add({
