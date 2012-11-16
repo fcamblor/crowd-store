@@ -11,7 +11,7 @@ require.config({
         "underscore.string": "../components/underscore.string/lib/underscore.string",
         "bootstrap": "vendor/bootstrap/bootstrap",
         "json2": "../components/require-handlebars-plugin/hbs/json2",
-        "handlebars": "../components/handlebars.js/handlebars-1.0.0-rc.1",
+        "handlebars": "../components/handlebars/handlebars-1.0.0-rc.1",
         "i18nprecompile": "../components/require-handlebars-plugin/hbs/i18nprecompile",
         "hbs": "../components/require-handlebars-plugin/hbs",
         "crypto-sha512": "../components/crypto-sha512/index"
@@ -72,10 +72,12 @@ require.config({
             exports: "CryptoJS"
         }
     },
+    /*
     // hbs is a requirejs plugin, so we should load it as soon as possible...
     deps: [
         "hbs"
     ],
+    */
     // hbs particular configuration properties
     hbs: {
         disableI18n: true // Support for i18n is useless for the moment...
@@ -83,13 +85,25 @@ require.config({
 });
 
 require([
-    "jquery", "models/Application", "views/ApplicationView",
-    "helpers/handlebars-helpers", "backbone", "bbModelBinder", "bbCollectionBinder",
-    "bbDeepModel", "jquery", "jquery-plugins/spring-validationerrors", "bootstrap"
-], function($, app, appView){
+    // hbs is a requirejs plugin, so we should load it as soon as possible...
+    "hbs", "helpers/handlebars-helpers",
+    "jquery", "jquery-plugins/spring-validationerrors",
+    "backbone", "bbModelBinder", "bbCollectionBinder", "bbDeepModel",
+    "bootstrap"
+], function(){
 
-    $(document).ready(function(){
-        app.start();
-        appView.start();
+    require([
+        "jquery", "models/Application", "views/ApplicationView",
+        /*
+        "helpers/handlebars-helpers", "backbone", "bbModelBinder", "bbCollectionBinder",
+        "bbDeepModel", "jquery", "jquery-plugins/spring-validationerrors", "bootstrap"
+        */
+    ], function($, app, appView){
+
+        $(document).ready(function(){
+            app.start();
+            appView.start();
+        });
     });
+
 });
