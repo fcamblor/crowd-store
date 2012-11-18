@@ -45,13 +45,17 @@ define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "back
             if(!currentUser){
                 this.menus.reset();
             } else {
+                var $self = this;
+                /*
                 this.menus.add({
                     label: "Stores",
                     submenus: new Backbone.Collection([])
                 });
-                var storesSubmenus = this.menus.at(this.menus.length-1).get("submenus");
+                */
+                //var storesSubmenus = this.menus.at(this.menus.length-1).get("submenus");
                 _.each(_.keys(currentUser.storesAuthorizations), function(storeName){
-                    storesSubmenus.add({ label: storeName, href: "#!/stores/"+storeName+"/availableProducts" });
+                    $self.menus.add({ label: storeName, href: "#!/stores/"+storeName+"/availableProducts" });
+                    //storesSubmenus.add({ label: storeName, href: "#!/stores/"+storeName+"/availableProducts" });
                 });
 
                 this.menus.add({
