@@ -5,6 +5,7 @@ define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "back
         el: "body",
 
         events: {
+            "click #main-menu-left a": "mainMenuLinkClicked"
         },
 
         initialize: function(){
@@ -39,6 +40,12 @@ define(["hbs!templates/menus/navmenus", "hbs!templates/menus/navsubmenus", "back
         _unregisterModelBinder: function(id){
             this._modelBinders[id].unbind();
             delete this._modelBinders[id];
+        },
+
+        mainMenuLinkClicked: function(event){
+            var currentListEl = $(event.currentTarget).parent("li");
+            currentListEl.siblings().removeClass("active");
+            currentListEl.addClass("active");
         },
 
         updateUserMenus: function(app, currentUser){
