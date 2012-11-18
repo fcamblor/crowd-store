@@ -1,13 +1,15 @@
 define(["backbone", "underscore"],
     function(Backbone, _){
 
-    return Backbone.DeepModel.extend({
+    var StoreAvailableProduct = Backbone.DeepModel.extend({
         defaults:{
 
         },
 
         initialize: function(args){
-            Backbone.DeepModel.prototype.initialize.call(this, args);
+            StoreAvailableProduct.__super__.initialize.call(this, args);
         }
     });
+
+    return StoreAvailableProduct;
 });

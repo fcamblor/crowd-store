@@ -2,7 +2,7 @@ define(["jquery", "backbone"], function($, Backbone){
 
     var dynamicSection = $("#container");
 
-    return Backbone.Router.extend({
+    var MainRouter = Backbone.Router.extend({
         routes: {
             "!/*url": "invokeView"
         },
@@ -22,7 +22,7 @@ define(["jquery", "backbone"], function($, Backbone){
         currentView: null,
 
         initialize: function(){
-            Backbone.Router.prototype.initialize.call(this);
+            MainRouter.__super__.initialize.call(this);
 
             this.viewByUrlPattern = this.createViewByUrlPattern(this.viewByUrl);
         },
@@ -76,5 +76,7 @@ define(["jquery", "backbone"], function($, Backbone){
             return viewByUrlPattern;
         }
     });
+
+    return MainRouter;
 });
 

@@ -9,7 +9,7 @@ define(["backbone", "underscore", "routes/MainRouter", "helpers/ajax"], function
 
         initialize: function(attributes, options){
             Ajax.initJQueryAjax(this);
-            Backbone.Model.prototype.initialize.call(this, attributes, options);
+            ApplicationClass.__super__.initialize.call(this,attributes, options);
 
             this.bind("change:currentUser.*", this.currentUserUpdated, this);
         },

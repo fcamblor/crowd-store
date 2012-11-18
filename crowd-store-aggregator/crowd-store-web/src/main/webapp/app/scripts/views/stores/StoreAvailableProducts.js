@@ -6,12 +6,12 @@ define([
 ],
     function(tmplContent, tmplListProduct, Backbone, _, StoreAvailableProductCollection){
 
-    return Backbone.View.extend({
+    var StoreAvailableProducts = Backbone.View.extend({
         events: {
         },
 
         initialize: function(parameters){
-            Backbone.View.prototype.initialize.call(this, parameters);
+            StoreAvailableProducts.__super__.initialize.call(this, parameters);
 
             var storeToken = parameters[0];
             this.model = new StoreAvailableProductCollection({ storeToken: storeToken });
@@ -46,4 +46,6 @@ define([
             return this;
         }
     });
+
+    return StoreAvailableProducts;
 });
