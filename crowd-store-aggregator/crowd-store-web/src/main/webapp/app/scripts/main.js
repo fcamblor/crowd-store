@@ -84,26 +84,30 @@ require.config({
     }
 });
 
+// hbs is a requirejs plugin, so we should load it as soon as possible in order to be
+// available in further requirements
 require([
-    // hbs is a requirejs plugin, so we should load it as soon as possible...
-    "hbs", "helpers/handlebars-helpers",
-    "jquery", "jquery-plugins/spring-validationerrors",
-    "backbone", "bbModelBinder", "bbCollectionBinder", "bbDeepModel",
-    "bootstrap"
+    "hbs"
 ], function(){
 
+    // First loading every common dependencies needed to start executing some javascript
     require([
-        "jquery", "models/Application", "views/ApplicationView",
-        /*
-        "helpers/handlebars-helpers", "backbone", "bbModelBinder", "bbCollectionBinder",
-        "bbDeepModel", "jquery", "jquery-plugins/spring-validationerrors", "bootstrap"
-        */
-    ], function($, app, appView){
+        "jquery", "helpers/handlebars-helpers", "jquery-plugins/spring-validationerrors",
+        "backbone", "bbModelBinder", "bbCollectionBinder", "bbDeepModel",
+        "bootstrap"
+    ], function($){
 
-        $(document).ready(function(){
-            app.start();
-            appView.start();
+        // Now loading Application objects and view in order to start Application
+        require([
+            "models/Application", "views/ApplicationView"
+        ], function(app, appView){
+
+            $(document).ready(function(){
+                app.start();
+                appView.start();
+            });
         });
+
     });
 
 });
