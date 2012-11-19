@@ -144,13 +144,19 @@ module.exports = function( grunt ) {
 
     // update references in HTML/CSS to revved files
     usemin: {
-      html: ['**/*.html'],
-      css: ['**/*.css']
+      // Since we are on a single page app, we can only minify index.html single page
+      // file and css located in styles/ directory
+      //html: ['**/*.html'],
+      html: ['index.html'],
+      //css: ['**/*.css']
+      css: ['styles/**/*.css']
     },
 
     // HTML minification
     html: {
-      files: ['**/*.html']
+      // See above why we only minify index.html
+      //files: ['**/*.html']
+      files: ['index.html']
     },
 
     // Optimizes JPGs and PNGs (with jpegtran & optipng)
