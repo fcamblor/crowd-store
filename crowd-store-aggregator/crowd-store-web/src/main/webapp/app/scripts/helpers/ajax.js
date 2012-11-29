@@ -8,6 +8,7 @@ define(["jquery", "underscore", "underscore.string", "helpers/js-utils"], functi
                 $.ajaxPrefilter(function(options, originalOptions, jqXHR){
                     if(!_s.startsWith(options.url, "http")){
                         options.url = crossDomainRootUrl + options.url;
+                        options.xhrFields = { withCredentials: true };
                     }
                 });
             }

@@ -19,11 +19,12 @@ public class AllowCrossDomainFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // CORS "pre-flight" request
-        if("dev".equals(System.getProperty("env"))){
+        if ("dev".equals(System.getProperty("env"))) {
             // Allowing yeoman server requests
             response.addHeader("Access-Control-Allow-Origin", "http://localhost:3501");
             response.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
             response.addHeader("Access-Control-Allow-Headers", "origin, x-csrftoken, x-requested-with, content-type, accept");
+            response.addHeader("Access-Control-Allow-Credentials", "true");
             response.addHeader("Access-Control-Max-Age", "1800");//30 min
         }
 
