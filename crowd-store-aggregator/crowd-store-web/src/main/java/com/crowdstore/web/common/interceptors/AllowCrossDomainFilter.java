@@ -24,6 +24,7 @@ public class AllowCrossDomainFilter extends OncePerRequestFilter {
             response.addHeader("Access-Control-Allow-Origin", "http://localhost:3501");
             response.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
             response.addHeader("Access-Control-Allow-Headers", "origin, x-csrftoken, x-requested-with, content-type, accept");
+            // More infos there : http://stackoverflow.com/a/7189502/476345
             response.addHeader("Access-Control-Allow-Credentials", "true");
             response.addHeader("Access-Control-Max-Age", "1800");//30 min
         }
