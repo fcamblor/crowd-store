@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crowdstore.persistence.mappings.sellingOrder">
+
+    <resultMap id="SellingOrderIdentity" type="com.crowdstore.models.sellingOrder.SellingOrderIdentity"
+               extends="com.crowdstore.persistence.mappings.commons.Identifiable">
+        <result property="quantity" column="quantity" />
+        <result property="orderDate" column="order_date" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <resultMap id="FlatSellingOrder" type="com.crowdstore.models.sellingOrder.FlatSellingOrder"
+               extends="com.crowdstore.persistence.mappings.commons.IdentifiableContainer">
+        <result property="userId" column="user_id" />
+        <result property="sellingProductId" column="selling_product_id" />
+        <association property="identity" resultMap="SellingOrderIdentity" columnPrefix="identity." />
+    </resultMap>
+
+</mapper>
