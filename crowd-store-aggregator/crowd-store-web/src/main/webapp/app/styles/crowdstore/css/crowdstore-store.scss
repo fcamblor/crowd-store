@@ -1,0 +1,43 @@
+@import "variables.scss";
+
+#container {
+	.sh-store {
+		$store-color: $darkwood;
+	}
+
+}
+
+#products {
+	list-style-type: none;
+
+	li {
+		display: inline-block;
+
+		a {
+			position: relative;
+			display: block;
+			height: 100%;
+		}
+
+		.product-thumbnail {
+			position: relative;
+			display: inline-block;
+			width: 93px;
+			height: 93px;
+			background: white;
+			border: 2px solid darken($store-color,10%);
+		}
+
+		.product-name {
+
+		}
+
+		.product-price {
+
+		}
+
+		.arrow-details {
+
+		}
+	}
+}

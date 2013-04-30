@@ -1,2 +1,7 @@
 @import "bootstrap/css/bootstrap.css";
 @import "bootstrap/css/bootstrap-responsive.css";
+@import "crowdstore/css/quicksand.css";
+@import "crowdstore/css/crowdstore.css";
+@import "crowdstore/css/crowdstore-login.css";
+@import "crowdstore/css/crowdstore-store.css";
+

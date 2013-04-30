@@ -1,0 +1,114 @@
+@import "variables.scss";
+
+body {
+	background: $main-patterns repeat;
+	font-family: "QuicksandBold", Helvetica, Arial, sans-serif;
+}
+
+.navbar-inner {
+	background: $main-background-color;
+	border: none;
+}
+
+.navbar-fixed-top,
+.navbar-static-top {
+	.navbar-inner {
+		@include box-shadow ($main-color 0 2px 0);
+	}
+}
+
+.navbar {
+	.brand {
+		padding: 7px 20px 7px;
+		@include text-shadow (none);
+	}
+
+	.nav {
+		> li {
+			> a {
+				@include text-shadow ($grey80 0 1px 3px);
+			}
+		}
+	}
+}
+
+.hero-unit {
+	background: none;	
+	border: none;
+	@include box-shadow (none);
+}
+
+.btn {
+	color: $white;
+	font-family: "QuicksandBold", Helvetica, Arial, sans-serif;
+	border: none;
+	background: $main-color;
+	@include box-shadow (darken($main-color, 10%) 0 -7px 0);
+	@include text-shadow ($grey80 0 1px 3px);
+	@include border-radius (0px);
+
+	&:hover, &:focus {
+		color: $white;
+		background: lighten($main-color, 10%);
+		@include box-shadow (lighten(darken($main-color, 10%),10%) 0 -7px 0);
+		@include transition (background 0.1s linear, box-shadow 0.1s linear);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:active {
+		color: $white;
+		background: lighten($main-color, 20%);
+		@include box-shadow (lighten(darken($main-color, 20%),20%) 0 -7px 0);
+	}
+}
+
+textarea, 
+input[type="text"], 
+input[type="password"], 
+input[type="datetime"], 
+input[type="datetime-local"], 
+input[type="date"], 
+input[type="month"], 
+input[type="time"], 
+input[type="week"], 
+input[type="number"], 
+input[type="email"], 
+input[type="url"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="color"], 
+.uneditable-input {
+	border: 0;
+	font-family: "QuicksandBook", Helvetica, Arial, sans-serif;
+	color: $main-font-color;
+	background: $white;
+	@include transition (background 0.3s linear, box-shadow 0.3s linear);
+	@include border-radius (0px);
+	@include box-shadow ($grey20 0 -7px 0);
+
+	&:focus {
+		background: darken($white, 10%);
+		@include box-shadow (lighten($grey20, 20%) 0 -7px 0);
+	}
+}
+
+.control-group.error {
+	input, select, textarea {
+		color: $error-color;
+		@include box-shadow ($error-color 0 -7px 0);
+
+		&:focus {
+			outline: none;
+			@include box-shadow ($error-color 0 -7px 0);
+		}
+	}
+}
+
+.control-group.error {
+	> label, .help-block, .help-inline {
+		color: $error-color;	
+	}
+}

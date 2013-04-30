@@ -1,0 +1,19 @@
+@import "variables.scss";
+
+#loginForm {
+	background: $grey10;
+	max-width: 500px;
+	margin: 0 auto 0;
+	padding: 17px 10px 10px 10px;
+	@include border-radius (0px);
+	@include box-shadow (darken($grey10,10%) 0 10px 0 0 inset, $grey80 0 0 10px);
+
+	.btn {
+		margin-bottom: 15px;
+	}
+
+	.crowdstore-logo {
+		max-width: 400px;
+		margin: 0 auto 0;
+	}
+}

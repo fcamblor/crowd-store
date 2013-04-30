@@ -4,9 +4,12 @@
   "decription" : "A login page template"
 }
 }}
-<form id="loginForm">
+<form id="loginForm" class="form-horizontal">
     <fieldset>
-        <legend>Connexion</legend>
+        <!--<legend>Connexion</legend>-->
+        <div class="crowdstore-logo">
+            <img src="../../styles/crowdstore/img/logo_login.svg" alt="Logo CrowdStore"/>
+        </div>
         {{#html-input "" id="login" name="login" type="email" label="Email" placeholder="Email..." }}
         {{/html-input}}
         {{#html-field "" id="login" label="Mot de passe" }}
@@ -14,5 +17,9 @@
             <input type="hidden" id="hashedPassword" name="hashedPassword" />
         {{/html-field}}
     </fieldset>
-    <button id="authenticateBtn" type="button" class="btn">S'authentifier</button>
+    <div class="control-group">
+        <div class="controls">
+            <button id="authenticateBtn" type="button" class="btn">S'authentifier</button>
+        </div>
+    </div>
 </form>
