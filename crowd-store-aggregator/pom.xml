@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>crowd-store-parent</module>
+        <module>crowd-store-restx</module>
         <module>crowd-store-web</module>
     </modules>
 
