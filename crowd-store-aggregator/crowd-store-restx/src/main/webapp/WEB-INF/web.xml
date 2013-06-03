@@ -8,6 +8,11 @@
         <servlet-class>restx.servlet.RestxMainRouterServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>mongoDbMaintainer</servlet-name>
+        <servlet-class>com.mongodbmaintain.MongoDBMaintainerServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>restx</servlet-name>
         <url-pattern>/api/*</url-pattern>
