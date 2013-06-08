@@ -9,6 +9,7 @@ import org.joda.time.Duration;
 import restx.RestxSession;
 import restx.Status;
 import restx.annotations.DELETE;
+import restx.annotations.GET;
 import restx.annotations.POST;
 import restx.annotations.RestxResource;
 import restx.exceptions.RestxError;
@@ -24,6 +25,17 @@ public class SessionResource {
         this.userPersistence = userPersistence;
     }
 
+    @GET("/sessions/current")
+    public Optional<User> currentUser(){
+        return RestxSession.current().get(User.class, RestxPrincipal.SESSION_DEF_KEY);
+    }
+
+    @DELETE("/sessions/current")
+    public ImmutableMap logout() {
+        RestxSession.current().define(User.class, RestxPrincipal.SESSION_DEF_KEY, null);
+        return Status.DELETED;
+    }
+
     @POST("/sessions")
     public User authenticate(Credentials credentials) {
         RestxSession.current().define(User.class, RestxPrincipal.SESSION_DEF_KEY, null);
@@ -37,11 +49,5 @@ public class SessionResource {
         RestxSession.current().expires(credentials.isRememberMe() ? Duration.standardDays(30) : Duration.ZERO);
 
         return u.get();
-    }
-
-    @DELETE("/sessions/{sessionKey}")
-    public ImmutableMap logout(String sessionKey) {
-        RestxSession.current().define(User.class, RestxPrincipal.SESSION_DEF_KEY, null);
-        return Status.DELETED;
     }
 }
