@@ -1,0 +1,29 @@
+title: should authentication then disconnection change current authenticated user
+given:
+  - collection: users
+    data: |
+      { "key" : { "$oid" : "5166cfb2300420d6a7e240e2"}, "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "passwordHash" : "e8e2171ab8ddee3f0358339fdc348169", "profileNames": [ "GLOBAL_ADMIN" ] }
+
+wts:
+  - when: |
+      GET sessions/current
+    then: |
+      404
+  - when: |
+      POST sessions
+      { "email": "fcamblor+crowdstore@gmail.com", "passwordHash": "e8e2171ab8ddee3f0358339fdc348169", "rememberMe": true }
+    then: |
+      { "key" : "5166cfb2300420d6a7e240e2", "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "roles":["CREATE_STORE","UPDATE_OWN_USERINFOS","UPDATE_OTHERS_USERINFOS"] }
+  - when: |
+      GET sessions/current
+    then: |
+      200
+      { "key" : "5166cfb2300420d6a7e240e2", "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "roles":["CREATE_STORE","UPDATE_OWN_USERINFOS","UPDATE_OTHERS_USERINFOS"] }
+  - when: |
+      DELETE sessions/current
+    then: |
+      { "status": "deleted" }
+  - when: |
+      GET sessions/current
+    then: |
+      404

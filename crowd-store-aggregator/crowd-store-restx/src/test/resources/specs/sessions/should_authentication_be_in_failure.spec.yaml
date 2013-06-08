@@ -1,0 +1,17 @@
+title: should authentication be in failure with bad credentials
+given:
+  - collection: users
+    data: |
+      { "key" : { "$oid" : "5166cfb2300420d6a7e240e2"}, "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "passwordHash" : "e8e2171ab8ddee3f0358339fdc348169", "profileNames": [ "GLOBAL_ADMIN" ] }
+
+wts:
+  - when: |
+      POST sessions
+      { "email": "fcamblor+crowdstore@gmail.com", "passwordHash": "errouneousHash", "rememberMe": true }
+    then: |
+      403
+  - when: |
+      POST sessions
+      { "email": "erroneous@mail.com", "passwordHash": "e8e2171ab8ddee3f0358339fdc348169", "rememberMe": true }
+    then: |
+      403
