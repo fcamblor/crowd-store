@@ -1,12 +1,10 @@
 package com.crowdstore.rest;
 
 import com.crowdstore.domain.users.Credentials;
-import com.crowdstore.domain.users.Session;
 import com.crowdstore.domain.users.User;
 import com.crowdstore.persistence.UserPersistence;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
-import org.bson.types.ObjectId;
 import org.joda.time.Duration;
 import restx.RestxSession;
 import restx.Status;
@@ -27,18 +25,18 @@ public class SessionResource {
     }
 
     @POST("/sessions")
-    public Session authenticate(Credentials credentials) {
+    public User authenticate(Credentials credentials) {
         RestxSession.current().define(User.class, RestxPrincipal.SESSION_DEF_KEY, null);
         Optional<User> u = userPersistence.findUserByLoginAndPasswordHash(credentials.getEmail(), credentials.getPasswordHash());
         if (!u.isPresent()) {
-            throw RestxError.on(Session.Rules.InvalidUser.class)
-                        .set(Session.Rules.InvalidUser.LOGIN, credentials.getEmail()).raise();
+            throw RestxError.on(User.Rules.InvalidUser.class)
+                        .set(User.Rules.InvalidUser.LOGIN, credentials.getEmail()).raise();
         }
 
         RestxSession.current().define(User.class, RestxPrincipal.SESSION_DEF_KEY, u.get().getKey());
         RestxSession.current().expires(credentials.isRememberMe() ? Duration.standardDays(30) : Duration.ZERO);
 
-        return Session.create(new ObjectId().toString(), u.get());
+        return u.get();
     }
 
     @DELETE("/sessions/{sessionKey}")
