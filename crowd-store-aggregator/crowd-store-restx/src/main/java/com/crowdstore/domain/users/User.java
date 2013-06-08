@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import restx.RestxSession;
+import restx.exceptions.ErrorCode;
+import restx.exceptions.ErrorField;
 import restx.jackson.Views;
 import restx.security.RestxPrincipal;
 
@@ -66,5 +68,17 @@ public class User extends SimpleUser implements RestxPrincipal {
 
     public Collection<String> getRoles() {
         return roles;
+    }
+
+    public static class Rules {
+        @ErrorCode(code = "USER-003", status = 403, description = "invalid user")
+        public static enum InvalidUser {
+            @ErrorField("login") LOGIN
+        }
+        @ErrorCode(code = "USER-004", status = 403, description = "unconfirmed email")
+        public static enum UnconfirmedEmail {
+            @ErrorField("login") LOGIN,
+            @ErrorField("email") EMAIL
+        }
     }
 }
