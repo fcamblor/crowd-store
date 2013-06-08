@@ -48,7 +48,7 @@ public class User extends SimpleUser implements RestxPrincipal {
 
     @JsonCreator
     public static User createUser(
-            @JsonProperty("key") String key, @JsonProperty("firstName") String firstName,
+            @JsonProperty("_id") String key, @JsonProperty("firstName") String firstName,
             @JsonProperty("lastName") String lastName, @JsonProperty("email") String email,
             @JsonProperty("passwordHash") String passwordHash, @JsonProperty("profileNames") Collection<String> profileNames){
 

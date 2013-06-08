@@ -38,7 +38,7 @@ public class SimpleUser {
 
     @JsonCreator
     public static SimpleUser createSimpleUser(
-            @JsonProperty("key") String key, @JsonProperty("firstName") String firstName,
+            @JsonProperty("_id") String key, @JsonProperty("firstName") String firstName,
             @JsonProperty("lastName") String lastName, @JsonProperty("email") String email,
             @JsonProperty("passwordHash") String passwordHash){
 
