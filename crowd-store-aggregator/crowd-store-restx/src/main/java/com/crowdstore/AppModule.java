@@ -20,7 +20,7 @@ public class AppModule {
         return new RestxSession.Definition.Entry(User.class, RestxPrincipal.SESSION_DEF_KEY, new CacheLoader<String, User>() {
             @Override
             public User load(String key) throws Exception {
-                return userPersistence.findUserByKey(key).get();
+                return userPersistence.findUserByKey(key).orNull();
             }
         });
     }
