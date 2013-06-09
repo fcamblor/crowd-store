@@ -33,6 +33,6 @@ public class UserPersistence {
     }
 
     public Optional<User> findUserByKey(String key) {
-        return Optional.fromNullable(users().findOne("{_id: #}", key).as(User.class));
+        return Optional.fromNullable(users().findOne("{_id: { \"$oid\" : # }}", key).as(User.class));
     }
 }

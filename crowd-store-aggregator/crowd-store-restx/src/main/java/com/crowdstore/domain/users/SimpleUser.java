@@ -38,11 +38,11 @@ public class SimpleUser {
 
     @JsonCreator
     public static SimpleUser createSimpleUser(
-            @JsonProperty("_id") String key, @JsonProperty("firstName") String firstName,
+            @JsonProperty("_id") org.bson.types.ObjectId key, @JsonProperty("firstName") String firstName,
             @JsonProperty("lastName") String lastName, @JsonProperty("email") String email,
             @JsonProperty("passwordHash") String passwordHash){
 
-        return new SimpleUser(key, firstName, lastName, email, passwordHash);
+        return new SimpleUser(key.toString(), firstName, lastName, email, passwordHash);
     }
 
     @Override

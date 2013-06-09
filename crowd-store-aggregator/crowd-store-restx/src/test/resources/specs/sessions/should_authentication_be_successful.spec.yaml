@@ -2,7 +2,7 @@ title: should authentication be successful with existing user
 given:
   - collection: users
     data: |
-      { "key" : { "$oid" : "5166cfb2300420d6a7e240e2"}, "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "passwordHash" : "e8e2171ab8ddee3f0358339fdc348169", "profileNames": [ "GLOBAL_ADMIN" ] }
+      { "_id": { "$oid" : "5166cfb2300420d6a7e240e2" }, "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "passwordHash" : "e8e2171ab8ddee3f0358339fdc348169", "profileNames": [ "GLOBAL_ADMIN" ] }
 
 wts:
   - when: |

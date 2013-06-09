@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
+import org.bson.types.ObjectId;
 import restx.RestxSession;
 import restx.exceptions.ErrorCode;
 import restx.exceptions.ErrorField;
@@ -50,11 +51,11 @@ public class User extends SimpleUser implements RestxPrincipal {
 
     @JsonCreator
     public static User createUser(
-            @JsonProperty("_id") String key, @JsonProperty("firstName") String firstName,
+            @JsonProperty("_id") ObjectId key, @JsonProperty("firstName") String firstName,
             @JsonProperty("lastName") String lastName, @JsonProperty("email") String email,
             @JsonProperty("passwordHash") String passwordHash, @JsonProperty("profileNames") Collection<String> profileNames){
 
-        return new User(key, firstName, lastName, email, passwordHash, profileNames);
+        return new User(key.toString(), firstName, lastName, email, passwordHash, profileNames);
     }
 
     @Override
