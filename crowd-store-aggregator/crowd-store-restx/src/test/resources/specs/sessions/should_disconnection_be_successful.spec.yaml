@@ -1,8 +1,9 @@
 title: should authentication then disconnection change current authenticated user
 given:
+  - time: 2013-06-09T16:38:36.549+02:00
   - collection: users
     data: |
-      { "_id" : { "$oid" : "5166cfb2300420d6a7e240e2"}, "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "passwordHash" : "e8e2171ab8ddee3f0358339fdc348169", "profileNames": [ "GLOBAL_ADMIN" ] }
+      { "_id": { "$oid" : "5166cfb2300420d6a7e240e2" }, "firstName" : "Admin", "lastName": "Admin", "email": "admin@crowdstore.fr", "passwordHash" : "e8e2171ab8ddee3f0358339fdc348169", "profileNames": [ "GLOBAL_ADMIN" ] }
 
 wts:
   - when: |
@@ -11,19 +12,22 @@ wts:
       404
   - when: |
       POST sessions
-      { "email": "fcamblor+crowdstore@gmail.com", "passwordHash": "e8e2171ab8ddee3f0358339fdc348169", "rememberMe": true }
+      { "email": "admin@crowdstore.fr", "passwordHash": "e8e2171ab8ddee3f0358339fdc348169", "rememberMe": true }
     then: |
-      { "key" : "5166cfb2300420d6a7e240e2", "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "roles":["CREATE_STORE","UPDATE_OWN_USERINFOS","UPDATE_OTHERS_USERINFOS"] }
+      { "key" : "5166cfb2300420d6a7e240e2", "firstName" : "Admin", "lastName": "Admin", "email": "admin@crowdstore.fr", "roles":["CREATE_STORE","UPDATE_OWN_USERINFOS","UPDATE_OTHERS_USERINFOS"] }
   - when: |
       GET sessions/current
+      Cookie: RestxSession="{"_expires":"2013-07-09T16:44:48.139+02:00","principal":"5166cfb2300420d6a7e240e2"}"; RestxSessionSignature=EWBvkbO9+HRLsEFgQmFhiwAiDQU=
     then: |
       200
-      { "key" : "5166cfb2300420d6a7e240e2", "firstName" : "Fred", "lastName": "Camblor", "email": "fcamblor+crowdstore@gmail.com", "roles":["CREATE_STORE","UPDATE_OWN_USERINFOS","UPDATE_OTHERS_USERINFOS"] }
+      { "key" : "5166cfb2300420d6a7e240e2", "firstName" : "Admin", "lastName": "Admin", "email": "admin@crowdstore.fr", "roles":["CREATE_STORE","UPDATE_OWN_USERINFOS","UPDATE_OTHERS_USERINFOS"] }
   - when: |
       DELETE sessions/current
+      Cookie: RestxSession="{"_expires":"2013-07-09T16:44:48.139+02:00","principal":"5166cfb2300420d6a7e240e2"}"; RestxSessionSignature=EWBvkbO9+HRLsEFgQmFhiwAiDQU=
     then: |
       { "status": "deleted" }
   - when: |
       GET sessions/current
+      Cookie: RestxSession="{"_expires":"2013-07-09T16:44:48.139+02:00","principal":"5166cfb2300420d6a7e240e2"}"; RestxSessionSignature=EWBvkbO9+HRLsEFgQmFhiwAiDQU=
     then: |
       404
